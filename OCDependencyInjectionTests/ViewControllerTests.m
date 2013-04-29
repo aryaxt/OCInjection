@@ -11,6 +11,8 @@
 @implementation ViewControllerTests
 @synthesize viewController;
 
+#pragma mark - Setup & TearDown -
+
 - (void)setUp
 {
     [super setUp];
@@ -25,6 +27,8 @@
     
     [super tearDown];
 }
+
+#pragma mark - Tests -
 
 - (void)testShouldCallCleintWithGoogleUrl
 {

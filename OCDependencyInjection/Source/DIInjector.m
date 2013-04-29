@@ -12,6 +12,8 @@ static NSMutableDictionary *bindingDictionary;
 
 @implementation DIInjector
 
+#pragma mark - Initialization -
+
 + (id)sharedInstance
 {
 	static DIInjector *singleton;
@@ -34,6 +36,19 @@ static NSMutableDictionary *bindingDictionary;
 	
 	return self;
 }
+
+- (void)initializeInjector
+{
+	static dispatch_once_t onceToken;
+	
+	dispatch_once(&onceToken, ^{
+		Method originalMethod = class_getClassMethod([NSObject class], @selector(resolveInstanceMethod:));
+		Method swizzleMethod = class_getInstanceMethod([self class], @selector(replacement_resolveInstanceMethod:));
+		method_exchangeImplementations(originalMethod, swizzleMethod);
+	});
+}
+
+#pragma mark - Public Methods -
 
 - (void)bindClass:(Class)from toClass:(Class)to
 {
@@ -62,16 +77,7 @@ static NSMutableDictionary *bindingDictionary;
 	[bindingDictionary setObject:instance forKey:NSStringFromProtocol(protocol)];
 }
 
-- (void)initializeInjector
-{
-	static dispatch_once_t onceToken;
-	
-	dispatch_once(&onceToken, ^{
-		Method originalMethod = class_getClassMethod([NSObject class], @selector(resolveInstanceMethod:)); // save the oringinal implementation so it can be restored
-		Method swizzleMethod = class_getInstanceMethod([self class], @selector(replacement_resolveInstanceMethod:)); // save the replacement method
-		method_exchangeImplementations(originalMethod, swizzleMethod);
-	});
-}
+#pragma mark - Private MEthods -
 
 - (Class)classForKey:(NSString *)key
 {

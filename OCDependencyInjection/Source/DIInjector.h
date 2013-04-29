@@ -13,8 +13,8 @@
 
 + (id)sharedInstance;
 - (void)bindClass:(Class)from toClass:(Class)to;
-- (void)bindProtocol:(Protocol *)protocol toClass:(Class)class;
 - (void)bindClass:(Class)class toInstance:(id)instance;
+- (void)bindProtocol:(Protocol *)protocol toClass:(Class)class;
 - (void)bindProtocol:(Protocol *)protocol toInstance:(id)instance;
 
 @end
