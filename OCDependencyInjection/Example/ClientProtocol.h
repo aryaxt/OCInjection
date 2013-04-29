@@ -10,4 +10,6 @@
 
 @protocol ClientProtocol <NSObject>
 
+- (id)fetchDataFromUrl:(NSString *)url;
+
 @end

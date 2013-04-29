@@ -12,8 +12,11 @@
 
 @interface ViewController : UIViewController
 
+@property (nonatomic, assign) IBOutlet UIWebView *webView;
 @property (nonatomic, strong) SomeClient *client;
 @property (nonatomic, strong) id <ClientProtocol> clientProtocol;
-@property (nonatomic, strong) NSString *s;
+
+- (IBAction)FetchDataUsingInjectedClientByClass:(id)sender;
+- (IBAction)FetchDataUsingInjectedClientByProtocol:(id)sender;
 
 @end

@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "NSObject+test.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

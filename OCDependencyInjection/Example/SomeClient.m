@@ -10,5 +10,11 @@
 
 @implementation SomeClient
 
+- (id)fetchDataFromUrl:(NSString *)urlString
+{
+	NSURL *url = [NSURL URLWithString:urlString];
+	NSData *data = [NSData dataWithContentsOfURL:url];
+	return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+}
 
 @end
