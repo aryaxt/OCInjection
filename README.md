@@ -35,5 +35,12 @@ ______________
 @dynamic googleClient;
 @dynamic yahooClient;
 
+- (void)viewDidLoad
+{
+   [super viewDidLoad];
+   
+   [self.googleClient fetchSearchResultForKeyword:@"Hello-World"];
+}
+
 @end
 ```
