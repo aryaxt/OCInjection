@@ -12,18 +12,20 @@
 
 @implementation ViewController
 @synthesize webView;
-@dynamic client;
-@dynamic clientProtocol;
+@dynamic googleClient;
+@dynamic yahooClient;
 
-- (IBAction)FetchDataUsingInjectedClientByClass:(id)sender
+static NSString *searchKeyWord = @"DependencyInjection";
+
+- (IBAction)fetchGoogleDate:(id)sender
 {
-	NSString *htmlString = [self.client fetchDataFromUrl:@"http://www.google.com"];
+	NSString *htmlString = [self.googleClient fetchSearchResultForKeyword:searchKeyWord];
 	[self.webView loadHTMLString:htmlString baseURL:nil];
 }
 
-- (IBAction)FetchDataUsingInjectedClientByProtocol:(id)sender
+- (IBAction)fetchYahooData:(id)sender
 {
-	NSString *htmlString = [self.client fetchDataFromUrl:@"http://www.yahoo.com"];
+	NSString *htmlString = [self.yahooClient fetchYahooHomePage];
 	[self.webView loadHTMLString:htmlString baseURL:nil];
 }
 

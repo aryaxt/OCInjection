@@ -1,5 +1,5 @@
 //
-//  ClientProtocol.h
+//  DIConfig.h
 //  OCDependencyInjection
 //
 //  Created by Aryan Gh on 4/28/13.
@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol ClientProtocol <NSObject>
+@interface DIConfig : NSObject
 
-- (id)fetchDataFromUrl:(NSString *)url;
++ (void)setup;
 
 @end

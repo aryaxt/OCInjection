@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1583889B172E2D2D006DE713 /* Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 15838894172E2D2D006DE713 /* Client.m */; };
+		1583889C172E2D2D006DE713 /* GoogleClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 15838897172E2D2D006DE713 /* GoogleClient.m */; };
+		1583889D172E2D2D006DE713 /* YahooClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583889A172E2D2D006DE713 /* YahooClient.m */; };
 		15A5427B172DBFB90062531E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A5427A172DBFB90062531E /* UIKit.framework */; };
 		15A5427D172DBFB90062531E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A5427C172DBFB90062531E /* Foundation.framework */; };
 		15A5427F172DBFB90062531E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A5427E172DBFB90062531E /* CoreGraphics.framework */; };
@@ -22,10 +25,12 @@
 		15A542A3172DBFB90062531E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A5427A172DBFB90062531E /* UIKit.framework */; };
 		15A542A4172DBFB90062531E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A5427C172DBFB90062531E /* Foundation.framework */; };
 		15A542AC172DBFBA0062531E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 15A542AA172DBFBA0062531E /* InfoPlist.strings */; };
-		15A542AF172DBFBA0062531E /* OCDependencyInjectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A542AE172DBFBA0062531E /* OCDependencyInjectionTests.m */; };
+		15A542AF172DBFBA0062531E /* ViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A542AE172DBFBA0062531E /* ViewControllerTests.m */; };
 		15A542D8172E064A0062531E /* DIInjector.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A542D7172E064A0062531E /* DIInjector.m */; };
-		15A542E9172E06870062531E /* SomeClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A542E3172E06870062531E /* SomeClient.m */; };
 		15A542EA172E06870062531E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A542E5172E06870062531E /* ViewController.m */; };
+		15A542ED172E0A820062531E /* DIConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A542EC172E0A820062531E /* DIConfig.m */; };
+		15A542F7172E11CA0062531E /* DIMockConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A542F6172E11CA0062531E /* DIMockConfig.m */; };
+		15A5432B172E1F040062531E /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A54323172E1F040062531E /* libOCMock.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +44,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		15838893172E2D2D006DE713 /* Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Client.h; sourceTree = "<group>"; };
+		15838894172E2D2D006DE713 /* Client.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Client.m; sourceTree = "<group>"; };
+		15838895172E2D2D006DE713 /* ClientProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientProtocol.h; sourceTree = "<group>"; };
+		15838896172E2D2D006DE713 /* GoogleClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleClient.h; sourceTree = "<group>"; };
+		15838897172E2D2D006DE713 /* GoogleClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleClient.m; sourceTree = "<group>"; };
+		15838898172E2D2D006DE713 /* GoogleClientProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleClientProtocol.h; sourceTree = "<group>"; };
+		15838899172E2D2D006DE713 /* YahooClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YahooClient.h; sourceTree = "<group>"; };
+		1583889A172E2D2D006DE713 /* YahooClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YahooClient.m; sourceTree = "<group>"; };
 		15A54276172DBFB90062531E /* OCDependencyInjection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OCDependencyInjection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15A5427A172DBFB90062531E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		15A5427C172DBFB90062531E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -58,15 +71,23 @@
 		15A542A1172DBFB90062531E /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		15A542A9172DBFBA0062531E /* OCDependencyInjectionTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OCDependencyInjectionTests-Info.plist"; sourceTree = "<group>"; };
 		15A542AB172DBFBA0062531E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		15A542AD172DBFBA0062531E /* OCDependencyInjectionTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCDependencyInjectionTests.h; sourceTree = "<group>"; };
-		15A542AE172DBFBA0062531E /* OCDependencyInjectionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCDependencyInjectionTests.m; sourceTree = "<group>"; };
+		15A542AD172DBFBA0062531E /* ViewControllerTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewControllerTests.h; sourceTree = "<group>"; };
+		15A542AE172DBFBA0062531E /* ViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewControllerTests.m; sourceTree = "<group>"; };
 		15A542D6172E064A0062531E /* DIInjector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIInjector.h; sourceTree = "<group>"; };
 		15A542D7172E064A0062531E /* DIInjector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIInjector.m; sourceTree = "<group>"; };
-		15A542DB172E06870062531E /* ClientProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientProtocol.h; sourceTree = "<group>"; };
-		15A542E2172E06870062531E /* SomeClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SomeClient.h; sourceTree = "<group>"; };
-		15A542E3172E06870062531E /* SomeClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SomeClient.m; sourceTree = "<group>"; };
 		15A542E4172E06870062531E /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		15A542E5172E06870062531E /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		15A542EB172E0A820062531E /* DIConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIConfig.h; sourceTree = "<group>"; };
+		15A542EC172E0A820062531E /* DIConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIConfig.m; sourceTree = "<group>"; };
+		15A542F5172E11CA0062531E /* DIMockConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIMockConfig.h; sourceTree = "<group>"; };
+		15A542F6172E11CA0062531E /* DIMockConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIMockConfig.m; sourceTree = "<group>"; };
+		15A54323172E1F040062531E /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOCMock.a; sourceTree = "<group>"; };
+		15A54325172E1F040062531E /* NSNotificationCenter+OCMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+OCMAdditions.h"; sourceTree = "<group>"; };
+		15A54326172E1F040062531E /* OCMArg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMArg.h; sourceTree = "<group>"; };
+		15A54327172E1F040062531E /* OCMConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMConstraint.h; sourceTree = "<group>"; };
+		15A54328172E1F040062531E /* OCMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMock.h; sourceTree = "<group>"; };
+		15A54329172E1F040062531E /* OCMockObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockObject.h; sourceTree = "<group>"; };
+		15A5432A172E1F040062531E /* OCMockRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockRecorder.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,12 +108,36 @@
 				15A542A2172DBFB90062531E /* SenTestingKit.framework in Frameworks */,
 				15A542A3172DBFB90062531E /* UIKit.framework in Frameworks */,
 				15A542A4172DBFB90062531E /* Foundation.framework in Frameworks */,
+				15A5432B172E1F040062531E /* libOCMock.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		15838891172E2D2D006DE713 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				15838892172E2D2D006DE713 /* Client */,
+				15838896172E2D2D006DE713 /* GoogleClient.h */,
+				15838897172E2D2D006DE713 /* GoogleClient.m */,
+				15838898172E2D2D006DE713 /* GoogleClientProtocol.h */,
+				15838899172E2D2D006DE713 /* YahooClient.h */,
+				1583889A172E2D2D006DE713 /* YahooClient.m */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		15838892172E2D2D006DE713 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				15838893172E2D2D006DE713 /* Client.h */,
+				15838894172E2D2D006DE713 /* Client.m */,
+				15838895172E2D2D006DE713 /* ClientProtocol.h */,
+			);
+			path = Client;
+			sourceTree = "<group>";
+		};
 		15A5426B172DBFB90062531E = {
 			isa = PBXGroup;
 			children = (
@@ -154,9 +199,12 @@
 		15A542A7172DBFB90062531E /* OCDependencyInjectionTests */ = {
 			isa = PBXGroup;
 			children = (
-				15A542AD172DBFBA0062531E /* OCDependencyInjectionTests.h */,
-				15A542AE172DBFBA0062531E /* OCDependencyInjectionTests.m */,
 				15A542A8172DBFBA0062531E /* Supporting Files */,
+				15A54322172E1E8E0062531E /* Libraries */,
+				15A542AD172DBFBA0062531E /* ViewControllerTests.h */,
+				15A542AE172DBFBA0062531E /* ViewControllerTests.m */,
+				15A542F5172E11CA0062531E /* DIMockConfig.h */,
+				15A542F6172E11CA0062531E /* DIMockConfig.m */,
 			);
 			path = OCDependencyInjectionTests;
 			sourceTree = "<group>";
@@ -182,13 +230,35 @@
 		15A542DA172E06870062531E /* Example */ = {
 			isa = PBXGroup;
 			children = (
-				15A542DB172E06870062531E /* ClientProtocol.h */,
-				15A542E2172E06870062531E /* SomeClient.h */,
-				15A542E3172E06870062531E /* SomeClient.m */,
+				15838891172E2D2D006DE713 /* Services */,
+				15A542EB172E0A820062531E /* DIConfig.h */,
+				15A542EC172E0A820062531E /* DIConfig.m */,
 				15A542E4172E06870062531E /* ViewController.h */,
 				15A542E5172E06870062531E /* ViewController.m */,
 			);
 			path = Example;
+			sourceTree = "<group>";
+		};
+		15A54322172E1E8E0062531E /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				15A54323172E1F040062531E /* libOCMock.a */,
+				15A54324172E1F040062531E /* OCMock */,
+			);
+			path = Libraries;
+			sourceTree = "<group>";
+		};
+		15A54324172E1F040062531E /* OCMock */ = {
+			isa = PBXGroup;
+			children = (
+				15A54325172E1F040062531E /* NSNotificationCenter+OCMAdditions.h */,
+				15A54326172E1F040062531E /* OCMArg.h */,
+				15A54327172E1F040062531E /* OCMConstraint.h */,
+				15A54328172E1F040062531E /* OCMock.h */,
+				15A54329172E1F040062531E /* OCMockObject.h */,
+				15A5432A172E1F040062531E /* OCMockRecorder.h */,
+			);
+			path = OCMock;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -305,8 +375,11 @@
 				15A54287172DBFB90062531E /* main.m in Sources */,
 				15A5428B172DBFB90062531E /* AppDelegate.m in Sources */,
 				15A542D8172E064A0062531E /* DIInjector.m in Sources */,
-				15A542E9172E06870062531E /* SomeClient.m in Sources */,
 				15A542EA172E06870062531E /* ViewController.m in Sources */,
+				15A542ED172E0A820062531E /* DIConfig.m in Sources */,
+				1583889B172E2D2D006DE713 /* Client.m in Sources */,
+				1583889C172E2D2D006DE713 /* GoogleClient.m in Sources */,
+				1583889D172E2D2D006DE713 /* YahooClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,7 +387,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				15A542AF172DBFBA0062531E /* OCDependencyInjectionTests.m in Sources */,
+				15A542AF172DBFBA0062531E /* ViewControllerTests.m in Sources */,
+				15A542F7172E11CA0062531E /* DIMockConfig.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,6 +495,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OCDependencyInjection/OCDependencyInjection-Prefix.pch";
 				INFOPLIST_FILE = "OCDependencyInjection/OCDependencyInjection-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/OCDependencyInjection/Libraries\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -432,6 +510,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OCDependencyInjection/OCDependencyInjection-Prefix.pch";
 				INFOPLIST_FILE = "OCDependencyInjection/OCDependencyInjection-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/OCDependencyInjection/Libraries\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -447,7 +529,16 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OCDependencyInjection/OCDependencyInjection-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/OCDependencyInjectionTests/Libraries";
 				INFOPLIST_FILE = "OCDependencyInjectionTests/OCDependencyInjectionTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/OCDependencyInjectionTests/Libraries\"",
+				);
+				OTHER_LDFLAGS = (
+					"-force_load",
+					"$(SRCROOT)/OCDependencyInjectionTests/Libraries/libOCMock.a",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
@@ -464,7 +555,16 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OCDependencyInjection/OCDependencyInjection-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/OCDependencyInjectionTests/Libraries";
 				INFOPLIST_FILE = "OCDependencyInjectionTests/OCDependencyInjectionTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/OCDependencyInjectionTests/Libraries\"",
+				);
+				OTHER_LDFLAGS = (
+					"-force_load",
+					"$(SRCROOT)/OCDependencyInjectionTests/Libraries/libOCMock.a",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;

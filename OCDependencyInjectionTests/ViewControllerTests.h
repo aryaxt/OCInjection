@@ -7,7 +7,12 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
+#import "OCMock.h"
+#import "ViewController.h"
+#import "DIMockConfig.h"
 
-@interface OCDependencyInjectionTests : SenTestCase
+@interface ViewControllerTests : SenTestCase
+
+@property (nonatomic, strong) ViewController *viewController;
 
 @end

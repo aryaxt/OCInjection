@@ -1,5 +1,5 @@
 //
-//  SomeClient.h
+//  Client.h
 //  OCDependencyInjection
 //
 //  Created by Aryan Gh on 4/28/13.
@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "ClientProtocol.h"
 
-@interface SomeClient : NSObject <ClientProtocol>
+@interface Client : NSObject <ClientProtocol>
 
 @end

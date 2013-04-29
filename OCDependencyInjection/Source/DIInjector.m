@@ -52,6 +52,16 @@ static NSMutableDictionary *bindingDictionary;
 	[bindingDictionary setObject:NSStringFromClass(class) forKey:NSStringFromProtocol(protocol)];
 }
 
+- (void)bindClass:(Class)class toInstance:(id)instance
+{
+	[bindingDictionary setObject:instance forKey:NSStringFromClass(class)];
+}
+
+- (void)bindProtocol:(Protocol *)protocol toInstance:(id)instance
+{
+	[bindingDictionary setObject:instance forKey:NSStringFromProtocol(protocol)];
+}
+
 - (void)initializeInjector
 {
 	static dispatch_once_t onceToken;
@@ -110,16 +120,24 @@ id accessorGetter(id self, SEL _cmd)
 			 stringByReplacingOccurrencesOfString:@"<" withString:@""]
 			stringByReplacingOccurrencesOfString:@">" withString:@""];
 	
-	
-	
-	
 	char const * const ObjectTagKey = [NSStringFromSelector(_cmd) UTF8String];
 	id currentValue = objc_getAssociatedObject(self, ObjectTagKey);
 	
 	if (!currentValue)
 	{
-		Class class = NSClassFromString([bindingDictionary objectForKey:typeAttribute]);
-		currentValue =  [[class alloc] init];
+		id injectionBinding = [bindingDictionary objectForKey:typeAttribute];
+		
+		#warning If it's string it's class name otherwise it's an instance of object
+		#warning Very hacky fix this later
+		if ([injectionBinding respondsToSelector:@selector(substringFromIndex:)])
+		{
+			Class class = NSClassFromString([bindingDictionary objectForKey:typeAttribute]);
+			currentValue = [[class alloc] init];
+		}
+		else
+		{
+			currentValue = injectionBinding;
+		}
 		
 		objc_setAssociatedObject(self, ObjectTagKey, currentValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}

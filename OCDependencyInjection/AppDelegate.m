@@ -7,20 +7,13 @@
 //
 
 #import "AppDelegate.h"
-#import <objc/runtime.h>
-#import "ViewController.h"
-#import "DIInjector.h"
+#import "DIConfig.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-	[[DIInjector sharedInstance] bindClass:[SomeClient class] toClass:[SomeClient class]];
-	[[DIInjector sharedInstance] bindProtocol:@protocol(ClientProtocol)  toClass:[SomeClient class]];
-	
-	ViewController *v = [[ViewController alloc] init];
-	id i = v.clientProtocol;
-	id b = v.client;
+	[DIConfig setup];
 	
     // Override point for customization after application launch.
     return YES;

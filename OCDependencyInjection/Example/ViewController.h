@@ -7,16 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SomeClient.h"
-#import "ClientProtocol.h"
+#import "YahooClient.h"
+#import "GoogleClientProtocol.h"
 
 @interface ViewController : UIViewController
 
 @property (nonatomic, assign) IBOutlet UIWebView *webView;
-@property (nonatomic, strong) SomeClient *client;
-@property (nonatomic, strong) id <ClientProtocol> clientProtocol;
+@property (nonatomic, strong) YahooClient *yahooClient;
+@property (nonatomic, strong) id <GoogleClientProtocol> googleClient;
 
-- (IBAction)FetchDataUsingInjectedClientByClass:(id)sender;
-- (IBAction)FetchDataUsingInjectedClientByProtocol:(id)sender;
+- (IBAction)fetchGoogleDate:(id)sender;
+- (IBAction)fetchYahooData:(id)sender;
 
 @end

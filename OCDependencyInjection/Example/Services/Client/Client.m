@@ -1,18 +1,19 @@
 //
-//  SomeClient.m
+//  Client.m
 //  OCDependencyInjection
 //
 //  Created by Aryan Gh on 4/28/13.
 //  Copyright (c) 2013 Aryan Ghassemi. All rights reserved.
 //
 
-#import "SomeClient.h"
+#import "Client.h"
+#import "ClientProtocol.h"
 
-@implementation SomeClient
+@implementation Client
 
-- (id)fetchDataFromUrl:(NSString *)urlString
+- (NSString *)fetchDataWithUrl:(NSString *)urlStirng
 {
-	NSURL *url = [NSURL URLWithString:urlString];
+	NSURL *url = [NSURL URLWithString:urlStirng];
 	NSData *data = [NSData dataWithContentsOfURL:url];
 	return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 }
