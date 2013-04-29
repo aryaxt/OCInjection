@@ -39,7 +39,8 @@ ______________
 {
    [super viewDidLoad];
    
-   [self.googleClient fetchSearchResultForKeyword:@"Hello-World"];
+   NSString *htmlString = [self.googleClient fetchSearchResultForKeyword:@"Hello-World"];
+   NSString *htmlString2 = [self.yahooClient fetchYahooHomePage];
 }
 
 @end
