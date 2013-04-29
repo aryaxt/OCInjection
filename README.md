@@ -24,7 +24,6 @@ Configuring DI Container
 {
 	[DIConfig setup];
 	
-    // Override point for customization after application launch.
     return YES;
 }
 ```
