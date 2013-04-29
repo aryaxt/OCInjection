@@ -16,5 +16,7 @@
 - (void)bindClass:(Class)class toInstance:(id)instance;
 - (void)bindProtocol:(Protocol *)protocol toClass:(Class)class;
 - (void)bindProtocol:(Protocol *)protocol toInstance:(id)instance;
+- (id)resolveForClass:(Class)class;
+- (id)resolveForProtocol:(Protocol *)protocol;
 
 @end

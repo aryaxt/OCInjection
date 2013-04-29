@@ -9,6 +9,7 @@
 #import "DIInjector.h"
 
 static NSMutableDictionary *bindingDictionary;
+static DIInjector *singleton;
 
 @implementation DIInjector
 
@@ -16,7 +17,6 @@ static NSMutableDictionary *bindingDictionary;
 
 + (id)sharedInstance
 {
-	static DIInjector *singleton;
 	static dispatch_once_t onceToken;
 	
 	dispatch_once(&onceToken, ^{
@@ -31,6 +31,7 @@ static NSMutableDictionary *bindingDictionary;
 	if (self = [super init])
 	{
 		bindingDictionary = [NSMutableDictionary dictionary];
+		
 		[self initializeInjector];
 	}
 	
@@ -77,12 +78,19 @@ static NSMutableDictionary *bindingDictionary;
 	[bindingDictionary setObject:instance forKey:NSStringFromProtocol(protocol)];
 }
 
-#pragma mark - Private MEthods -
-
-- (Class)classForKey:(NSString *)key
+- (id)resolveForClass:(Class)class
 {
-	return NSClassFromString([bindingDictionary objectForKey:key]);
+	//TODO: Implement
+	return nil;
 }
+
+- (id)resolveForProtocol:(Protocol *)protocol
+{
+	//TODO: Implement
+	return nil;
+}
+
+#pragma mark - Private MEthods -
 
 - (BOOL)replacement_resolveInstanceMethod:(SEL)aSEL
 {
@@ -92,26 +100,28 @@ static NSMutableDictionary *bindingDictionary;
     {
 		NSString *getterName = [[method substringFromIndex:3] lowercaseString];
 		getterName = [getterName substringToIndex:getterName.length-1];
-		NSString *objectTypeString = [DIInjector typeForProperty:getterName andClass:[self class]];
+		NSString *objectTypeString = typeForProperty([self class], getterName);
 		
 		if ([bindingDictionary objectForKey:objectTypeString])
 		{
-			class_addMethod([self class], aSEL, (IMP) accessorSetter, "v@:@");
+			class_addMethod([self class], aSEL, (IMP)accessorSetter, "v@:@");
 			return YES;
 		}
     }
     else
     {
-		NSString *objectTypeString = [DIInjector typeForProperty:method andClass:[self class]];
+		NSString *objectTypeString = typeForProperty([self class], method);
 		if ([bindingDictionary objectForKey:objectTypeString])
 		{
-			class_addMethod([self class], aSEL, (IMP) accessorGetter, "@@:");
+			class_addMethod([self class], aSEL, (IMP)accessorGetter, "@@:");
 			return YES;
 		}
     }
 	
     return NO;
 }
+
+#pragma mark - C Functions -
 
 id accessorGetter(id self, SEL _cmd)
 {
@@ -151,23 +161,23 @@ id accessorGetter(id self, SEL _cmd)
 	return currentValue;
 }
 
-void accessorSetter(id self, SEL _cmd, NSString* newValue)
+void accessorSetter(id self, SEL _cmd, id newValue)
 {
 	char const * const ObjectTagKey = [NSStringFromSelector(_cmd) UTF8String];
 	objc_setAssociatedObject(self, ObjectTagKey, newValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-+ (BOOL)class:(Class)class hasProperty:(NSString *)testProperty
+bool classHasProperty(Class class, NSString *testPropertyName)
 {
 	unsigned int propertyCount = 0;
-	objc_property_t * properties = class_copyPropertyList(class, &propertyCount);
+	objc_property_t *properties = class_copyPropertyList(class, &propertyCount);
 	
-	for (unsigned int i = 0; i < propertyCount; ++i)
+	for (unsigned int i=0; i<propertyCount; ++i)
 	{
 		objc_property_t property = properties[i];
-		const char * name = property_getName(property);
+		const char *name = property_getName(property);
 		
-		if ([[NSString stringWithUTF8String:name] isEqual:testProperty])
+		if ([[NSString stringWithUTF8String:name] isEqual:testPropertyName])
 			return YES;
 	}
 	
@@ -175,22 +185,25 @@ void accessorSetter(id self, SEL _cmd, NSString* newValue)
 	return NO;
 }
 
-+ (NSString *)typeForProperty:(NSString *)property andClass:(Class)class
+NSString* typeForProperty(Class class, NSString *propertyName)
 {
-	if (![DIInjector class:class hasProperty:property])
+	if (!classHasProperty(class, propertyName))
 		return nil;
 	
-	const char *type = property_getAttributes(class_getProperty(class, [property UTF8String]));
+	const char *type = property_getAttributes(class_getProperty(class, [propertyName UTF8String]));
 	NSString *typeString = [NSString stringWithUTF8String:type];
 	NSArray *attributes = [typeString componentsSeparatedByString:@","];
 	NSString *typeAttribute = [attributes objectAtIndex:0];
+	
+	// Type Attribute For Class       T@"NSString"
+	// Type Attribute For Protocol    T@"<ProtocolName>"
+	// Here we trim these characters to end of with a raw class name
+	
 	return [[[[[typeAttribute substringFromIndex:1]
 			   stringByReplacingOccurrencesOfString:@"@" withString:@""]
 			  stringByReplacingOccurrencesOfString:@"\"" withString:@""]
 			 stringByReplacingOccurrencesOfString:@"<" withString:@""]
 			stringByReplacingOccurrencesOfString:@">" withString:@""];
 }
-
-
 
 @end
