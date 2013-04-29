@@ -19,6 +19,15 @@ Configuring DI Container
 
 @end
 ```
+```
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+	[DIConfig setup];
+	
+    // Override point for customization after application launch.
+    return YES;
+}
+```
 Using DI
 ----------
 ```
@@ -69,16 +78,15 @@ Mocking Dependencies for Unit Testing
 
 @end
 ```
-```
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    [DIConfig setup];
-	
-    return YES;
-}
-```
 Sample Unit Test
 ----------
+```
+@interface ViewControllerTests : SenTestCase
+
+@property (nonatomic, strong) ViewController *viewController;
+
+@end
+```
 ```
 @implementation ViewControllerTests
 @synthesize viewController;
