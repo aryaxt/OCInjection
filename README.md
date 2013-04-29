@@ -1,9 +1,9 @@
 OCInjector
 ==========
 
-DI framework for Objective C
-DI Container LazyInitializes properties which can boost performance.
-Making properties to be Injected is as simple as marking property as @dynamic
+DI framework for Objective C.
+The DI Container LazyInitializes properties which can boost performance.
+Injecting properties is as easy as marking them as @dynamic
 
 Configuring DI Container
 _____________
