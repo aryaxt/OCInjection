@@ -12,7 +12,7 @@ _____________
 
 + (void)setup
 {
-  [[DIInjector sharedInstance] bindClass:[YahooClient class] toClass:[YahooClient class]];
+    [[DIInjector sharedInstance] bindClass:[YahooClient class] toClass:[YahooClient class]];
 	[[DIInjector sharedInstance] bindProtocol:@protocol(GoogleClientProtocol)  toClass:[GoogleClient class]];
 	[[DIInjector sharedInstance] bindProtocol:@protocol(ClientProtocol)  toClass:[Client class]];
 }
