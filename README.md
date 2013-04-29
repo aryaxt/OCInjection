@@ -6,7 +6,7 @@ The DI Container LazyInitializes properties which can boost performance.
 Injecting properties is as easy as marking them as @dynamic
 
 Configuring DI Container
-_____________
+----------
 ```
 @implementation DIConfig
 
@@ -20,7 +20,7 @@ _____________
 @end
 ```
 Using DI
-______________
+----------
 ```
 @interface ViewController : UIViewController
 
@@ -29,19 +29,94 @@ ______________
 @property (nonatomic, strong) id <GoogleClientProtocol> googleClient;
 
 @end
-
+```
+```
 @implementation ViewController
 @synthesize webView;
 @dynamic googleClient;
 @dynamic yahooClient;
 
-- (void)viewDidLoad
+- (IBAction)fetchGoogleDate:(id)sender
 {
-   [super viewDidLoad];
-   
-   NSString *htmlString = [self.googleClient fetchSearchResultForKeyword:@"Hello-World"];
-   NSString *htmlString2 = [self.yahooClient fetchYahooHomePage];
+	NSString *htmlString = [self.googleClient fetchSearchResultForKeyword:searchKeyWord];
+	[self.webView loadHTMLString:htmlString baseURL:nil];
+}
+
+- (IBAction)fetchYahooData:(id)sender
+{
+	NSString *htmlString = [self.yahooClient fetchYahooHomePage];
+	[self.webView loadHTMLString:htmlString baseURL:nil];
 }
 
 @end
 ```
+
+Mocking Dependencies for Unit Testing
+----------
+```
+@implementation DIMockConfig
+
++ (void)setup
+{
+	OCMockObject *yahooClientMock = [OCMockObject niceMockForClass:[YahooClient class]];
+	OCMockObject *googleClientMock = [OCMockObject mockForProtocol:@protocol(GoogleClientProtocol)];
+	OCMockObject *mockClient = [OCMockObject mockForProtocol:@protocol(ClientProtocol)];
+	
+	[[DIInjector sharedInstance] bindClass:[YahooClient class] toInstance:yahooClientMock];
+	[[DIInjector sharedInstance] bindProtocol:@protocol(GoogleClientProtocol) toInstance:googleClientMock];
+	[[DIInjector sharedInstance] bindProtocol:@protocol(ClientProtocol) toInstance:mockClient];
+}
+
+@end
+```
+```
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    [DIConfig setup];
+	
+    return YES;
+}
+```
+Sample Unit Test
+----------
+```
+@implementation ViewControllerTests
+@synthesize viewController;
+
+#pragma mark - Setup & TearDown -
+
+- (void)setUp
+{
+    [super setUp];
+    
+	[DIMockConfig setup];
+    self.viewController = [[ViewController alloc] init];
+}
+
+- (void)tearDown
+{
+    self.viewController =  nil;
+    
+    [super tearDown];
+}
+
+#pragma mark - Tests -
+
+- (void)testShouldCallCleintWithGoogleUrl
+{
+	static NSString *expectedSearchTerm = @"DependencyInjection";
+	[[(OCMockObject *)self.viewController.googleClient expect] fetchSearchResultForKeyword:expectedSearchTerm];
+	[self.viewController fetchGoogleDate:nil];
+	[(OCMockObject *)self.viewController.googleClient verify];
+}
+
+- (void)testShouldCallCleintWithYahoo
+{
+	[[(OCMockObject *)self.viewController.yahooClient expect] fetchYahooHomePage];
+	[self.viewController fetchYahooData:nil];
+	[(OCMockObject *)self.viewController.yahooClient verify];
+}
+
+@end
+```
+
