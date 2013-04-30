@@ -52,14 +52,14 @@
 		15838898172E2D2D006DE713 /* GoogleClientProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleClientProtocol.h; sourceTree = "<group>"; };
 		15838899172E2D2D006DE713 /* YahooClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YahooClient.h; sourceTree = "<group>"; };
 		1583889A172E2D2D006DE713 /* YahooClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YahooClient.m; sourceTree = "<group>"; };
-		15A54276172DBFB90062531E /* OCDependencyInjection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OCDependencyInjection.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		15A54276172DBFB90062531E /* OCInjection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OCInjection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15A5427A172DBFB90062531E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		15A5427C172DBFB90062531E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		15A5427E172DBFB90062531E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		15A54282172DBFB90062531E /* OCDependencyInjection-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OCDependencyInjection-Info.plist"; sourceTree = "<group>"; };
+		15A54282172DBFB90062531E /* OCInjection-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OCInjection-Info.plist"; sourceTree = "<group>"; };
 		15A54284172DBFB90062531E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		15A54286172DBFB90062531E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		15A54288172DBFB90062531E /* OCDependencyInjection-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OCDependencyInjection-Prefix.pch"; sourceTree = "<group>"; };
+		15A54288172DBFB90062531E /* OCInjection-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OCInjection-Prefix.pch"; sourceTree = "<group>"; };
 		15A54289172DBFB90062531E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		15A5428A172DBFB90062531E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		15A5428C172DBFB90062531E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -67,9 +67,9 @@
 		15A54290172DBFB90062531E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		15A54293172DBFB90062531E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		15A54296172DBFB90062531E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
-		15A542A0172DBFB90062531E /* OCDependencyInjectionTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OCDependencyInjectionTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		15A542A0172DBFB90062531E /* OCInjectionTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OCInjectionTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		15A542A1172DBFB90062531E /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		15A542A9172DBFBA0062531E /* OCDependencyInjectionTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OCDependencyInjectionTests-Info.plist"; sourceTree = "<group>"; };
+		15A542A9172DBFBA0062531E /* OCInjectionTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OCInjectionTests-Info.plist"; sourceTree = "<group>"; };
 		15A542AB172DBFBA0062531E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		15A542AD172DBFBA0062531E /* ViewControllerTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewControllerTests.h; sourceTree = "<group>"; };
 		15A542AE172DBFBA0062531E /* ViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewControllerTests.m; sourceTree = "<group>"; };
@@ -141,8 +141,8 @@
 		15A5426B172DBFB90062531E = {
 			isa = PBXGroup;
 			children = (
-				15A54280172DBFB90062531E /* OCDependencyInjection */,
-				15A542A7172DBFB90062531E /* OCDependencyInjectionTests */,
+				15A54280172DBFB90062531E /* OCInjection */,
+				15A542A7172DBFB90062531E /* OCInjectionTests */,
 				15A54279172DBFB90062531E /* Frameworks */,
 				15A54277172DBFB90062531E /* Products */,
 			);
@@ -151,8 +151,8 @@
 		15A54277172DBFB90062531E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				15A54276172DBFB90062531E /* OCDependencyInjection.app */,
-				15A542A0172DBFB90062531E /* OCDependencyInjectionTests.octest */,
+				15A54276172DBFB90062531E /* OCInjection.app */,
+				15A542A0172DBFB90062531E /* OCInjectionTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -168,7 +168,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		15A54280172DBFB90062531E /* OCDependencyInjection */ = {
+		15A54280172DBFB90062531E /* OCInjection */ = {
 			isa = PBXGroup;
 			children = (
 				15A542DA172E06870062531E /* Example */,
@@ -179,16 +179,16 @@
 				15A54292172DBFB90062531E /* MainStoryboard_iPhone.storyboard */,
 				15A54295172DBFB90062531E /* MainStoryboard_iPad.storyboard */,
 			);
-			path = OCDependencyInjection;
+			path = OCInjection;
 			sourceTree = "<group>";
 		};
 		15A54281172DBFB90062531E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				15A54282172DBFB90062531E /* OCDependencyInjection-Info.plist */,
+				15A54282172DBFB90062531E /* OCInjection-Info.plist */,
 				15A54283172DBFB90062531E /* InfoPlist.strings */,
 				15A54286172DBFB90062531E /* main.m */,
-				15A54288172DBFB90062531E /* OCDependencyInjection-Prefix.pch */,
+				15A54288172DBFB90062531E /* OCInjection-Prefix.pch */,
 				15A5428C172DBFB90062531E /* Default.png */,
 				15A5428E172DBFB90062531E /* Default@2x.png */,
 				15A54290172DBFB90062531E /* Default-568h@2x.png */,
@@ -196,7 +196,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		15A542A7172DBFB90062531E /* OCDependencyInjectionTests */ = {
+		15A542A7172DBFB90062531E /* OCInjectionTests */ = {
 			isa = PBXGroup;
 			children = (
 				15A542A8172DBFBA0062531E /* Supporting Files */,
@@ -206,13 +206,13 @@
 				15A542F5172E11CA0062531E /* DIMockConfig.h */,
 				15A542F6172E11CA0062531E /* DIMockConfig.m */,
 			);
-			path = OCDependencyInjectionTests;
+			path = OCInjectionTests;
 			sourceTree = "<group>";
 		};
 		15A542A8172DBFBA0062531E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				15A542A9172DBFBA0062531E /* OCDependencyInjectionTests-Info.plist */,
+				15A542A9172DBFBA0062531E /* OCInjectionTests-Info.plist */,
 				15A542AA172DBFBA0062531E /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -264,9 +264,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		15A54275172DBFB90062531E /* OCDependencyInjection */ = {
+		15A54275172DBFB90062531E /* OCInjection */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 15A542B2172DBFBA0062531E /* Build configuration list for PBXNativeTarget "OCDependencyInjection" */;
+			buildConfigurationList = 15A542B2172DBFBA0062531E /* Build configuration list for PBXNativeTarget "OCInjection" */;
 			buildPhases = (
 				15A54272172DBFB90062531E /* Sources */,
 				15A54273172DBFB90062531E /* Frameworks */,
@@ -276,14 +276,14 @@
 			);
 			dependencies = (
 			);
-			name = OCDependencyInjection;
+			name = OCInjection;
 			productName = OCDependencyInjection;
-			productReference = 15A54276172DBFB90062531E /* OCDependencyInjection.app */;
+			productReference = 15A54276172DBFB90062531E /* OCInjection.app */;
 			productType = "com.apple.product-type.application";
 		};
-		15A5429F172DBFB90062531E /* OCDependencyInjectionTests */ = {
+		15A5429F172DBFB90062531E /* OCInjectionTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 15A542B5172DBFBA0062531E /* Build configuration list for PBXNativeTarget "OCDependencyInjectionTests" */;
+			buildConfigurationList = 15A542B5172DBFBA0062531E /* Build configuration list for PBXNativeTarget "OCInjectionTests" */;
 			buildPhases = (
 				15A5429B172DBFB90062531E /* Sources */,
 				15A5429C172DBFB90062531E /* Frameworks */,
@@ -295,9 +295,9 @@
 			dependencies = (
 				15A542A6172DBFB90062531E /* PBXTargetDependency */,
 			);
-			name = OCDependencyInjectionTests;
+			name = OCInjectionTests;
 			productName = OCDependencyInjectionTests;
-			productReference = 15A542A0172DBFB90062531E /* OCDependencyInjectionTests.octest */;
+			productReference = 15A542A0172DBFB90062531E /* OCInjectionTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -309,7 +309,7 @@
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "Aryan Ghassemi";
 			};
-			buildConfigurationList = 15A54270172DBFB90062531E /* Build configuration list for PBXProject "OCDependencyInjection" */;
+			buildConfigurationList = 15A54270172DBFB90062531E /* Build configuration list for PBXProject "OCInjection" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -321,8 +321,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				15A54275172DBFB90062531E /* OCDependencyInjection */,
-				15A5429F172DBFB90062531E /* OCDependencyInjectionTests */,
+				15A54275172DBFB90062531E /* OCInjection */,
+				15A5429F172DBFB90062531E /* OCInjectionTests */,
 			);
 		};
 /* End PBXProject section */
@@ -397,7 +397,7 @@
 /* Begin PBXTargetDependency section */
 		15A542A6172DBFB90062531E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 15A54275172DBFB90062531E /* OCDependencyInjection */;
+			target = 15A54275172DBFB90062531E /* OCInjection */;
 			targetProxy = 15A542A5172DBFB90062531E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -493,13 +493,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "OCDependencyInjection/OCDependencyInjection-Prefix.pch";
-				INFOPLIST_FILE = "OCDependencyInjection/OCDependencyInjection-Info.plist";
+				GCC_PREFIX_HEADER = "OCInjection/OCInjection-Prefix.pch";
+				INFOPLIST_FILE = "OCInjection/OCInjection-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/OCDependencyInjection/Libraries\"",
+					"\"$(SRCROOT)/OCInjection/Libraries\"",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = OCInjection;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -508,13 +508,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "OCDependencyInjection/OCDependencyInjection-Prefix.pch";
-				INFOPLIST_FILE = "OCDependencyInjection/OCDependencyInjection-Info.plist";
+				GCC_PREFIX_HEADER = "OCInjection/OCInjection-Prefix.pch";
+				INFOPLIST_FILE = "OCInjection/OCInjection-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/OCDependencyInjection/Libraries\"",
+					"\"$(SRCROOT)/OCInjection/Libraries\"",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = OCInjection;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -522,24 +522,24 @@
 		15A542B6172DBFBA0062531E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/OCDependencyInjection.app/OCDependencyInjection";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/OCInjection.app/OCInjection";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "OCDependencyInjection/OCDependencyInjection-Prefix.pch";
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/OCDependencyInjectionTests/Libraries";
-				INFOPLIST_FILE = "OCDependencyInjectionTests/OCDependencyInjectionTests-Info.plist";
+				GCC_PREFIX_HEADER = "OCInjection/OCInjection-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/OCInjectionTests/Libraries";
+				INFOPLIST_FILE = "OCInjectionTests/OCInjectionTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/OCDependencyInjectionTests/Libraries\"",
+					"\"$(SRCROOT)/OCInjectionTests/Libraries\"",
 				);
 				OTHER_LDFLAGS = (
 					"-force_load",
-					"$(SRCROOT)/OCDependencyInjectionTests/Libraries/libOCMock.a",
+					"$(SRCROOT)/OCInjectionTests/Libraries/libOCMock.a",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = OCInjectionTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -548,24 +548,24 @@
 		15A542B7172DBFBA0062531E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/OCDependencyInjection.app/OCDependencyInjection";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/OCInjection.app/OCInjection";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "OCDependencyInjection/OCDependencyInjection-Prefix.pch";
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/OCDependencyInjectionTests/Libraries";
-				INFOPLIST_FILE = "OCDependencyInjectionTests/OCDependencyInjectionTests-Info.plist";
+				GCC_PREFIX_HEADER = "OCInjection/OCInjection-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/OCInjectionTests/Libraries";
+				INFOPLIST_FILE = "OCInjectionTests/OCInjectionTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/OCDependencyInjectionTests/Libraries\"",
+					"\"$(SRCROOT)/OCInjectionTests/Libraries\"",
 				);
 				OTHER_LDFLAGS = (
 					"-force_load",
-					"$(SRCROOT)/OCDependencyInjectionTests/Libraries/libOCMock.a",
+					"$(SRCROOT)/OCInjectionTests/Libraries/libOCMock.a",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = OCInjectionTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -574,7 +574,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		15A54270172DBFB90062531E /* Build configuration list for PBXProject "OCDependencyInjection" */ = {
+		15A54270172DBFB90062531E /* Build configuration list for PBXProject "OCInjection" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				15A542B0172DBFBA0062531E /* Debug */,
@@ -583,7 +583,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		15A542B2172DBFBA0062531E /* Build configuration list for PBXNativeTarget "OCDependencyInjection" */ = {
+		15A542B2172DBFBA0062531E /* Build configuration list for PBXNativeTarget "OCInjection" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				15A542B3172DBFBA0062531E /* Debug */,
@@ -592,7 +592,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		15A542B5172DBFBA0062531E /* Build configuration list for PBXNativeTarget "OCDependencyInjectionTests" */ = {
+		15A542B5172DBFBA0062531E /* Build configuration list for PBXNativeTarget "OCInjectionTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				15A542B6172DBFBA0062531E /* Debug */,
