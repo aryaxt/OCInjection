@@ -128,4 +128,12 @@ Sample Unit Test
 
 @end
 ```
+In-Line Dependency Resolving
+----------
+```
+// Resolving Protocol
+id <GoogleClientProtocol> googleClient = [[DIInjector sharedInstance] resolveForProtocol:@protocol(GoogleClientProtocol)];
 
+// Resolving Class
+YahooClient *yahooClient = [[DIInjector sharedInstance] resolveForClass:[YahooClient class]];
+```
