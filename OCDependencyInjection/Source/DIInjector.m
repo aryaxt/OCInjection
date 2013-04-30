@@ -56,39 +56,47 @@ static DIInjector *singleton;
 	[bindingDictionary setObject:NSStringFromClass(from) forKey:NSStringFromClass(to)];
 }
 
-- (void)bindProtocol:(Protocol *)protocol toClass:(Class)class
-{
-	if (![class conformsToProtocol:protocol])
-		@throw ([NSException exceptionWithName:@"INvalid Binding"
-				reason:[NSString stringWithFormat:@"%@ does not conform to %@",
-						NSStringFromClass(class),
-						NSStringFromProtocol(protocol)]
-				userInfo:nil]);
-	
-	[bindingDictionary setObject:NSStringFromClass(class) forKey:NSStringFromProtocol(protocol)];
-}
-
 - (void)bindClass:(Class)class toInstance:(id)instance
 {
 	[bindingDictionary setObject:instance forKey:NSStringFromClass(class)];
 }
 
+- (void)bindProtocol:(Protocol *)protocol toClass:(Class)class
+{
+	if (![class conformsToProtocol:protocol])
+		@throw ([self invalidBindingExceptionFrom:NSStringFromClass(class) to:NSStringFromProtocol(protocol)]);
+	
+	[bindingDictionary setObject:NSStringFromClass(class) forKey:NSStringFromProtocol(protocol)];
+}
+
 - (void)bindProtocol:(Protocol *)protocol toInstance:(id)instance
 {
+	if (![instance conformsToProtocol:protocol])
+		@throw ([self invalidBindingExceptionFrom:[instance description] to:NSStringFromProtocol(protocol)]);
+	
 	[bindingDictionary setObject:instance forKey:NSStringFromProtocol(protocol)];
 }
 
 - (id)resolveForClass:(Class)class
 {
-	return injectingObjectForTypeString(NSStringFromClass(class));
+	return injectiionObjectForTypeString(NSStringFromClass(class));
 }
 
 - (id)resolveForProtocol:(Protocol *)protocol
 {
-	return injectingObjectForTypeString(NSStringFromProtocol(protocol));
+	return injectiionObjectForTypeString(NSStringFromProtocol(protocol));
 }
 
 #pragma mark - Private MEthods -
+
+- (NSException *)invalidBindingExceptionFrom:(NSString *)from to:(NSString *)to
+{
+	return [NSException exceptionWithName:@"Invalid Binding"
+								   reason:[NSString stringWithFormat:@"%@ does not conform to %@",
+										   from,
+										   to]
+								 userInfo:nil];
+}
 
 - (BOOL)replacement_resolveInstanceMethod:(SEL)aSEL
 {
@@ -142,7 +150,7 @@ bool classHasProperty(Class class, NSString *testPropertyName)
 	return NO;
 }
 
-id injectingObjectForTypeString(NSString *typeString)
+id injectiionObjectForTypeString(NSString *typeString)
 {
 	id object;
 	id injectionBinding = [bindingDictionary objectForKey:typeString];
@@ -192,7 +200,7 @@ id accessorGetter(id self, SEL _cmd)
 	
 	if (!currentValue)
 	{
-		currentValue = injectingObjectForTypeString(typeString);
+		currentValue = injectiionObjectForTypeString(typeString);
 		objc_setAssociatedObject(self, objectTagKey, currentValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
