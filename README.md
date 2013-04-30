@@ -1,4 +1,4 @@
-OCInjector
+OCInjection
 ==========
 
 DI framework for Objective C.
