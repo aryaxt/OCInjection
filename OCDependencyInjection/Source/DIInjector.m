@@ -123,50 +123,6 @@ static DIInjector *singleton;
 
 #pragma mark - C Functions -
 
-id accessorGetter(id self, SEL _cmd)
-{
-	NSString *propertyName = NSStringFromSelector(_cmd);
-	const char *type = property_getAttributes(class_getProperty([self class], [propertyName UTF8String]));
-	NSString *typeString = [NSString stringWithUTF8String:type];
-	NSArray *attributes = [typeString componentsSeparatedByString:@","];
-	NSString *typeAttribute = [attributes objectAtIndex:0];
-	typeAttribute = [[[[[typeAttribute substringFromIndex:1]
-			   stringByReplacingOccurrencesOfString:@"@" withString:@""]
-			  stringByReplacingOccurrencesOfString:@"\"" withString:@""]
-			 stringByReplacingOccurrencesOfString:@"<" withString:@""]
-			stringByReplacingOccurrencesOfString:@">" withString:@""];
-	
-	char const * const ObjectTagKey = [NSStringFromSelector(_cmd) UTF8String];
-	id currentValue = objc_getAssociatedObject(self, ObjectTagKey);
-	
-	if (!currentValue)
-	{
-		id injectionBinding = [bindingDictionary objectForKey:typeAttribute];
-		
-		#warning If it's string it's class name otherwise it's an instance of object
-		#warning Very hacky fix this later
-		if ([injectionBinding respondsToSelector:@selector(substringFromIndex:)])
-		{
-			Class class = NSClassFromString([bindingDictionary objectForKey:typeAttribute]);
-			currentValue = [[class alloc] init];
-		}
-		else
-		{
-			currentValue = injectionBinding;
-		}
-		
-		objc_setAssociatedObject(self, ObjectTagKey, currentValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-	}
-	
-	return currentValue;
-}
-
-void accessorSetter(id self, SEL _cmd, id newValue)
-{
-	char const * const ObjectTagKey = [NSStringFromSelector(_cmd) UTF8String];
-	objc_setAssociatedObject(self, ObjectTagKey, newValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
 bool classHasProperty(Class class, NSString *testPropertyName)
 {
 	unsigned int propertyCount = 0;
@@ -204,6 +160,41 @@ NSString* typeForProperty(Class class, NSString *propertyName)
 			  stringByReplacingOccurrencesOfString:@"\"" withString:@""]
 			 stringByReplacingOccurrencesOfString:@"<" withString:@""]
 			stringByReplacingOccurrencesOfString:@">" withString:@""];
+}
+
+id accessorGetter(id self, SEL _cmd)
+{
+	NSString *propertyName = NSStringFromSelector(_cmd);
+	NSString *typeString = typeForProperty([self class], propertyName);
+	char const * const objectTagKey = [NSStringFromSelector(_cmd) UTF8String];
+	id currentValue = objc_getAssociatedObject(self, objectTagKey);
+	
+	if (!currentValue)
+	{
+		id injectionBinding = [bindingDictionary objectForKey:typeString];
+		
+		#warning If it's string it's class name otherwise it's an instance of object
+		#warning Very hacky fix this later
+		if ([injectionBinding respondsToSelector:@selector(substringFromIndex:)])
+		{
+			Class class = NSClassFromString([bindingDictionary objectForKey:typeString]);
+			currentValue = [[class alloc] init];
+		}
+		else
+		{
+			currentValue = injectionBinding;
+		}
+		
+		objc_setAssociatedObject(self, objectTagKey, currentValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	}
+	
+	return currentValue;
+}
+
+void accessorSetter(id self, SEL _cmd, id newValue)
+{
+	char const * const objectTagKey = [NSStringFromSelector(_cmd) UTF8String];
+	objc_setAssociatedObject(self, objectTagKey, newValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end
