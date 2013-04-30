@@ -80,25 +80,23 @@ static DIInjector *singleton;
 
 - (id)resolveForClass:(Class)class
 {
-	//TODO: Implement
-	return nil;
+	return injectingObjectForTypeString(NSStringFromClass(class));
 }
 
 - (id)resolveForProtocol:(Protocol *)protocol
 {
-	//TODO: Implement
-	return nil;
+	return injectingObjectForTypeString(NSStringFromProtocol(protocol));
 }
 
 #pragma mark - Private MEthods -
 
 - (BOOL)replacement_resolveInstanceMethod:(SEL)aSEL
 {
-    NSString *method = NSStringFromSelector(aSEL);
+    NSString *methodName = NSStringFromSelector(aSEL);
 	
-    if ([method hasPrefix:@"set"])
+    if ([methodName hasPrefix:@"set"])
     {
-		NSString *getterName = [[method substringFromIndex:3] lowercaseString];
+		NSString *getterName = [[methodName substringFromIndex:3] lowercaseString];
 		getterName = [getterName substringToIndex:getterName.length-1];
 		NSString *objectTypeString = typeForProperty([self class], getterName);
 		
@@ -110,7 +108,7 @@ static DIInjector *singleton;
     }
     else
     {
-		NSString *objectTypeString = typeForProperty([self class], method);
+		NSString *objectTypeString = typeForProperty([self class], methodName);
 		if ([bindingDictionary objectForKey:objectTypeString])
 		{
 			class_addMethod([self class], aSEL, (IMP)accessorGetter, "@@:");
@@ -134,11 +132,34 @@ bool classHasProperty(Class class, NSString *testPropertyName)
 		const char *name = property_getName(property);
 		
 		if ([[NSString stringWithUTF8String:name] isEqual:testPropertyName])
+		{
+			free(properties);
 			return YES;
+		}
 	}
 	
 	free(properties);
 	return NO;
+}
+
+id injectingObjectForTypeString(NSString *typeString)
+{
+	id object;
+	id injectionBinding = [bindingDictionary objectForKey:typeString];
+	
+	#warning If it's string it's class name otherwise it's an instance of object
+	#warning Very hacky fix this later
+	if ([injectionBinding respondsToSelector:@selector(substringFromIndex:)])
+	{
+		Class class = NSClassFromString([bindingDictionary objectForKey:typeString]);
+		object = [[class alloc] init];
+	}
+	else
+	{
+		object = injectionBinding;
+	}
+	
+	return object;
 }
 
 NSString* typeForProperty(Class class, NSString *propertyName)
@@ -153,7 +174,7 @@ NSString* typeForProperty(Class class, NSString *propertyName)
 	
 	// Type Attribute For Class       T@"NSString"
 	// Type Attribute For Protocol    T@"<ProtocolName>"
-	// Here we trim these characters to end of with a raw class name
+	// Here we trim these characters to end of with a raw class/protocol name
 	
 	return [[[[[typeAttribute substringFromIndex:1]
 			   stringByReplacingOccurrencesOfString:@"@" withString:@""]
@@ -171,20 +192,7 @@ id accessorGetter(id self, SEL _cmd)
 	
 	if (!currentValue)
 	{
-		id injectionBinding = [bindingDictionary objectForKey:typeString];
-		
-		#warning If it's string it's class name otherwise it's an instance of object
-		#warning Very hacky fix this later
-		if ([injectionBinding respondsToSelector:@selector(substringFromIndex:)])
-		{
-			Class class = NSClassFromString([bindingDictionary objectForKey:typeString]);
-			currentValue = [[class alloc] init];
-		}
-		else
-		{
-			currentValue = injectionBinding;
-		}
-		
+		currentValue = injectingObjectForTypeString(typeString);
 		objc_setAssociatedObject(self, objectTagKey, currentValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
