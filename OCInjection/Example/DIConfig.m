@@ -7,7 +7,6 @@
 //
 
 #import "DIConfig.h"
-#import "DIInjector.h"
 #import "GoogleClientProtocol.h"
 #import "GoogleClient.h"
 #import "YahooClient.h"

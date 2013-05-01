@@ -17,13 +17,13 @@
 
 static NSString *searchKeyWord = @"DependencyInjection";
 
-- (IBAction)fetchGoogleDate:(id)sender
+- (IBAction)fetchGoogleDataSelected:(id)sender
 {
 	NSString *htmlString = [self.googleClient fetchSearchResultForKeyword:searchKeyWord];
 	[self.webView loadHTMLString:htmlString baseURL:nil];
 }
 
-- (IBAction)fetchYahooData:(id)sender
+- (IBAction)fetchYahooDataSelected:(id)sender
 {
 	NSString *htmlString = [self.yahooClient fetchYahooHomePage];
 	[self.webView loadHTMLString:htmlString baseURL:nil];

@@ -16,7 +16,7 @@
 @property (nonatomic, strong) YahooClient *yahooClient;
 @property (nonatomic, strong) id <GoogleClientProtocol> googleClient;
 
-- (IBAction)fetchGoogleDate:(id)sender;
-- (IBAction)fetchYahooData:(id)sender;
+- (IBAction)fetchGoogleDataSelected:(id)sender;
+- (IBAction)fetchYahooDataSelected:(id)sender;
 
 @end

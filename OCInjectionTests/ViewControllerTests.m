@@ -36,14 +36,14 @@
 {
 	static NSString *expectedSearchTerm = @"DependencyInjection";
 	[[(OCMockObject *)self.viewController.googleClient expect] fetchSearchResultForKeyword:expectedSearchTerm];
-	[self.viewController fetchGoogleDate:nil];
+	[self.viewController fetchGoogleDataSelected:nil];
 	[(OCMockObject *)self.viewController.googleClient verify];
 }
 
 - (void)testShouldCallCleintWithYahoo
 {
 	[[(OCMockObject *)self.viewController.yahooClient expect] fetchYahooHomePage];
-	[self.viewController fetchYahooData:nil];
+	[self.viewController fetchYahooDataSelected:nil];
 	[(OCMockObject *)self.viewController.yahooClient verify];
 }
 
