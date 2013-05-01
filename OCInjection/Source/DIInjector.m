@@ -73,7 +73,7 @@ static DIInjector *singleton;
 {
     NSString *methodName = NSStringFromSelector(aSEL);
 	
-    if ([methodName hasPrefix:@"set"])
+    if ([[methodName substringFromIndex:methodName.length-1] isEqual:@":"])
     {
 		NSString *getterName = [[methodName substringFromIndex:3] lowercaseString];
 		getterName = [getterName substringToIndex:getterName.length-1];
