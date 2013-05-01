@@ -14,15 +14,15 @@
 
 @implementation DIMockConfig
 
-+ (void)setup
+- (void)configure
 {
 	OCMockObject *yahooClientMock = [OCMockObject niceMockForClass:[YahooClient class]];
 	OCMockObject *googleClientMock = [OCMockObject mockForProtocol:@protocol(GoogleClientProtocol)];
 	OCMockObject *mockClient = [OCMockObject mockForProtocol:@protocol(ClientProtocol)];
 	
-	[[DIInjector sharedInstance] bindClass:[YahooClient class] toInstance:yahooClientMock];
-	[[DIInjector sharedInstance] bindProtocol:@protocol(GoogleClientProtocol) toInstance:googleClientMock];
-	[[DIInjector sharedInstance] bindProtocol:@protocol(ClientProtocol) toInstance:mockClient];
+	[self bindClass:[YahooClient class] toInstance:yahooClientMock];
+	[self bindProtocol:@protocol(GoogleClientProtocol) toInstance:googleClientMock];
+	[self bindProtocol:@protocol(ClientProtocol) toInstance:mockClient];
 }
 
 @end

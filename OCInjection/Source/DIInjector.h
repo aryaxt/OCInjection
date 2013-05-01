@@ -8,15 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <objc/runtime.h>
+#import "DIAbstractModule.h"
 
 @interface DIInjector : NSObject
 
 + (id)sharedInstance;
-- (void)bindClass:(Class)from toClass:(Class)to;
-- (void)bindClass:(Class)class toInstance:(id)instance;
-- (void)bindProtocol:(Protocol *)protocol toClass:(Class)class;
-- (void)bindProtocol:(Protocol *)protocol toInstance:(id)instance;
 - (id)resolveForClass:(Class)class;
 - (id)resolveForProtocol:(Protocol *)protocol;
+- (void)setDefaultModule:(DIAbstractModule *)modeule;
 
 @end

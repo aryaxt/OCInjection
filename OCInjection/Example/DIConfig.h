@@ -7,9 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DIAbstractModule.h"
 
-@interface DIConfig : NSObject
-
-+ (void)setup;
+@interface DIConfig : DIAbstractModule
 
 @end

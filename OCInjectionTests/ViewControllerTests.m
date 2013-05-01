@@ -17,7 +17,9 @@
 {
     [super setUp];
     
-	[DIMockConfig setup];
+	DIMockConfig *module = [[DIMockConfig alloc] init];
+	[[DIInjector sharedInstance] setDefaultModule:module];
+	
     self.viewController = [[ViewController alloc] init];
 }
 

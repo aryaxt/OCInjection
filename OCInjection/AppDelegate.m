@@ -7,13 +7,15 @@
 //
 
 #import "AppDelegate.h"
+#import "OCInjection.h"
 #import "DIConfig.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-	[DIConfig setup];
+	DIConfig *config = [[DIConfig alloc] init];
+	[[DIInjector sharedInstance] setDefaultModule:config];
 	
     // Override point for customization after application launch.
     return YES;

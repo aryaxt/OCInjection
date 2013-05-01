@@ -10,6 +10,7 @@
 #import "OCMock.h"
 #import "ViewController.h"
 #import "DIMockConfig.h"
+#import "OCInjection.h"
 
 @interface ViewControllerTests : SenTestCase
 

@@ -8,95 +8,66 @@
 
 #import "DIInjector.h"
 
-static NSMutableDictionary *bindingDictionary;
-static DIInjector *singleton;
+@interface DIInjector()
+@property (nonatomic, strong) DIAbstractModule *module;
+@end
 
 @implementation DIInjector
+@synthesize module;
 
 #pragma mark - Initialization -
+
+static DIInjector *singleton;
 
 + (id)sharedInstance
 {
 	static dispatch_once_t onceToken;
 	
 	dispatch_once(&onceToken, ^{
-		singleton = [[DIInjector alloc] init];
+		singleton = [[DIInjector alloc] _init];
 	});
 	
 	return singleton;
 }
 
-- (id)init
+- (id)_init
 {
 	if (self = [super init])
 	{
-		bindingDictionary = [NSMutableDictionary dictionary];
-		
-		[self initializeInjector];
+		Method originalMethod = class_getClassMethod([NSObject class], @selector(resolveInstanceMethod:));
+		Method swizzleMethod = class_getInstanceMethod([self class], @selector(replacement_resolveInstanceMethod:));
+		method_exchangeImplementations(originalMethod, swizzleMethod);
 	}
 	
 	return self;
 }
 
-- (void)initializeInjector
+- (id)init
 {
-	static dispatch_once_t onceToken;
-	
-	dispatch_once(&onceToken, ^{
-		Method originalMethod = class_getClassMethod([NSObject class], @selector(resolveInstanceMethod:));
-		Method swizzleMethod = class_getInstanceMethod([self class], @selector(replacement_resolveInstanceMethod:));
-		method_exchangeImplementations(originalMethod, swizzleMethod);
-	});
+	@throw ([NSException exceptionWithName:@"Illegal Initializer"
+									reason:@"Illegal init call, use the sharedInstance method to access the singleton instance."
+								  userInfo:nil]);
 }
 
 #pragma mark - Public Methods -
 
-- (void)bindClass:(Class)from toClass:(Class)to
-{
-	[bindingDictionary setObject:NSStringFromClass(from) forKey:NSStringFromClass(to)];
-}
-
-- (void)bindClass:(Class)class toInstance:(id)instance
-{
-	[bindingDictionary setObject:instance forKey:NSStringFromClass(class)];
-}
-
-- (void)bindProtocol:(Protocol *)protocol toClass:(Class)class
-{
-	if (![class conformsToProtocol:protocol])
-		@throw ([self invalidBindingExceptionFrom:NSStringFromClass(class) to:NSStringFromProtocol(protocol)]);
-	
-	[bindingDictionary setObject:NSStringFromClass(class) forKey:NSStringFromProtocol(protocol)];
-}
-
-- (void)bindProtocol:(Protocol *)protocol toInstance:(id)instance
-{
-	if (![instance conformsToProtocol:protocol])
-		@throw ([self invalidBindingExceptionFrom:[instance description] to:NSStringFromProtocol(protocol)]);
-	
-	[bindingDictionary setObject:instance forKey:NSStringFromProtocol(protocol)];
-}
-
 - (id)resolveForClass:(Class)class
 {
-	return injectiionObjectForTypeString(NSStringFromClass(class));
+	return [self.module injectionObjectForClass:class];
 }
 
 - (id)resolveForProtocol:(Protocol *)protocol
 {
-	return injectiionObjectForTypeString(NSStringFromProtocol(protocol));
+	return [self.module injectionObjectForProtocol:protocol];
+}
+
+- (void)setDefaultModule:(DIAbstractModule *)aModeule
+{
+	self.module = aModeule;
+	[self.module configure];
 }
 
 #pragma mark - Private MEthods -
-
-- (NSException *)invalidBindingExceptionFrom:(NSString *)from to:(NSString *)to
-{
-	return [NSException exceptionWithName:@"Invalid Binding"
-								   reason:[NSString stringWithFormat:@"%@ does not conform to %@",
-										   from,
-										   to]
-								 userInfo:nil];
-}
 
 - (BOOL)replacement_resolveInstanceMethod:(SEL)aSEL
 {
@@ -108,7 +79,7 @@ static DIInjector *singleton;
 		getterName = [getterName substringToIndex:getterName.length-1];
 		NSString *objectTypeString = typeForProperty([self class], getterName);
 		
-		if ([bindingDictionary objectForKey:objectTypeString])
+		if ([singleton.module canResolveObjectForType:objectTypeString])
 		{
 			class_addMethod([self class], aSEL, (IMP)accessorSetter, "v@:@");
 			return YES;
@@ -117,7 +88,8 @@ static DIInjector *singleton;
     else
     {
 		NSString *objectTypeString = typeForProperty([self class], methodName);
-		if ([bindingDictionary objectForKey:objectTypeString])
+		
+		if ([singleton.module canResolveObjectForType:objectTypeString])
 		{
 			class_addMethod([self class], aSEL, (IMP)accessorGetter, "@@:");
 			return YES;
@@ -150,26 +122,6 @@ bool classHasProperty(Class class, NSString *testPropertyName)
 	return NO;
 }
 
-id injectiionObjectForTypeString(NSString *typeString)
-{
-	id object;
-	id injectionBinding = [bindingDictionary objectForKey:typeString];
-	
-	#warning If it's string it's class name otherwise it's an instance of object
-	#warning Very hacky fix this later
-	if ([injectionBinding respondsToSelector:@selector(substringFromIndex:)])
-	{
-		Class class = NSClassFromString([bindingDictionary objectForKey:typeString]);
-		object = [[class alloc] init];
-	}
-	else
-	{
-		object = injectionBinding;
-	}
-	
-	return object;
-}
-
 NSString* typeForProperty(Class class, NSString *propertyName)
 {
 	if (!classHasProperty(class, propertyName))
@@ -180,7 +132,7 @@ NSString* typeForProperty(Class class, NSString *propertyName)
 	NSArray *attributes = [typeString componentsSeparatedByString:@","];
 	NSString *typeAttribute = [attributes objectAtIndex:0];
 	
-	// Type Attribute For Class       T@"NSString"
+	// Type Attribute For Class       T@"ClassName"
 	// Type Attribute For Protocol    T@"<ProtocolName>"
 	// Here we trim these characters to end of with a raw class/protocol name
 	
@@ -200,7 +152,7 @@ id accessorGetter(id self, SEL _cmd)
 	
 	if (!currentValue)
 	{
-		currentValue = injectiionObjectForTypeString(typeString);
+		currentValue = currentValue = [singleton.module injectionObjectForType:typeString];
 		objc_setAssociatedObject(self, objectTagKey, currentValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	

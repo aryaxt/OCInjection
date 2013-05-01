@@ -31,6 +31,7 @@
 		15A542ED172E0A820062531E /* DIConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A542EC172E0A820062531E /* DIConfig.m */; };
 		15A542F7172E11CA0062531E /* DIMockConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A542F6172E11CA0062531E /* DIMockConfig.m */; };
 		15A5432B172E1F040062531E /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A54323172E1F040062531E /* libOCMock.a */; };
+		993F03C91730257500A21C93 /* DIAbstractModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 993F03C81730257500A21C93 /* DIAbstractModule.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		15838898172E2D2D006DE713 /* GoogleClientProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleClientProtocol.h; sourceTree = "<group>"; };
 		15838899172E2D2D006DE713 /* YahooClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YahooClient.h; sourceTree = "<group>"; };
 		1583889A172E2D2D006DE713 /* YahooClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YahooClient.m; sourceTree = "<group>"; };
+		158388B717304DF3006DE713 /* OCInjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCInjection.h; sourceTree = "<group>"; };
 		15A54276172DBFB90062531E /* OCInjection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OCInjection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15A5427A172DBFB90062531E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		15A5427C172DBFB90062531E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -88,6 +90,8 @@
 		15A54328172E1F040062531E /* OCMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMock.h; sourceTree = "<group>"; };
 		15A54329172E1F040062531E /* OCMockObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockObject.h; sourceTree = "<group>"; };
 		15A5432A172E1F040062531E /* OCMockRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockRecorder.h; sourceTree = "<group>"; };
+		993F03C71730257500A21C93 /* DIAbstractModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIAbstractModule.h; sourceTree = "<group>"; };
+		993F03C81730257500A21C93 /* DIAbstractModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIAbstractModule.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +227,9 @@
 			children = (
 				15A542D6172E064A0062531E /* DIInjector.h */,
 				15A542D7172E064A0062531E /* DIInjector.m */,
+				993F03C71730257500A21C93 /* DIAbstractModule.h */,
+				993F03C81730257500A21C93 /* DIAbstractModule.m */,
+				158388B717304DF3006DE713 /* OCInjection.h */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -380,6 +387,7 @@
 				1583889B172E2D2D006DE713 /* Client.m in Sources */,
 				1583889C172E2D2D006DE713 /* GoogleClient.m in Sources */,
 				1583889D172E2D2D006DE713 /* YahooClient.m in Sources */,
+				993F03C91730257500A21C93 /* DIAbstractModule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

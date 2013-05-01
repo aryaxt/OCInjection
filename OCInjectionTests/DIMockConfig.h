@@ -8,9 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "OCMock.h"
+#import "DIAbstractModule.h"
 
-@interface DIMockConfig : NSObject
-
-+ (void)setup;
+@interface DIMockConfig : DIAbstractModule
 
 @end
