@@ -9,14 +9,22 @@ This framework is still under development, and it is not meant to be used in pro
 
 Configuring DI Container
 ----------
+To setup binding you need to create a new class inheriting from 'DIAbstractModule' and implementing configure 'method'
+```
+#import "DIAbstractModule.h"
+
+@interface DIConfig : DIAbstractModule
+
+@end
+```
 ```
 @implementation DIConfig
 
-+ (void)setup
+- (void)configure
 {
-    [[DIInjector sharedInstance] bindClass:[YahooClient class] toClass:[YahooClient class]];
-	[[DIInjector sharedInstance] bindProtocol:@protocol(GoogleClientProtocol)  toClass:[GoogleClient class]];
-	[[DIInjector sharedInstance] bindProtocol:@protocol(ClientProtocol)  toClass:[Client class]];
+	[self bindClass:[YahooClient class] toClass:[YahooClient class]];
+	[self bindProtocol:@protocol(GoogleClientProtocol) toClass:[GoogleClient class]];
+	[self bindProtocol:@protocol(ClientProtocol) toClass:[Client class]];
 }
 
 @end
@@ -24,7 +32,8 @@ Configuring DI Container
 ```
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-	[DIConfig setup];
+	DIConfig *config = [[DIConfig alloc] init];
+	[[DIInjector sharedInstance] setDefaultModule:config];
 	
     return YES;
 }
@@ -66,15 +75,15 @@ Mocking Dependencies for Unit Testing
 ```
 @implementation DIMockConfig
 
-+ (void)setup
+- (void)configure
 {
 	OCMockObject *yahooClientMock = [OCMockObject niceMockForClass:[YahooClient class]];
 	OCMockObject *googleClientMock = [OCMockObject mockForProtocol:@protocol(GoogleClientProtocol)];
 	OCMockObject *mockClient = [OCMockObject mockForProtocol:@protocol(ClientProtocol)];
 	
-	[[DIInjector sharedInstance] bindClass:[YahooClient class] toInstance:yahooClientMock];
-	[[DIInjector sharedInstance] bindProtocol:@protocol(GoogleClientProtocol) toInstance:googleClientMock];
-	[[DIInjector sharedInstance] bindProtocol:@protocol(ClientProtocol) toInstance:mockClient];
+	[self bindClass:[YahooClient class] toInstance:yahooClientMock];
+	[self bindProtocol:@protocol(GoogleClientProtocol) toInstance:googleClientMock];
+	[self bindProtocol:@protocol(ClientProtocol) toInstance:mockClient];
 }
 
 @end
