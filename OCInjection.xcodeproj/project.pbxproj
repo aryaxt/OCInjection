@@ -32,6 +32,7 @@
 		15A542F7172E11CA0062531E /* DIMockConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A542F6172E11CA0062531E /* DIMockConfig.m */; };
 		15A5432B172E1F040062531E /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A54323172E1F040062531E /* libOCMock.a */; };
 		993F03C91730257500A21C93 /* DIAbstractModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 993F03C81730257500A21C93 /* DIAbstractModule.m */; };
+		993F042A17316AD200A21C93 /* DIInjectorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 993F042917316AD200A21C93 /* DIInjectorTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +93,8 @@
 		15A5432A172E1F040062531E /* OCMockRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockRecorder.h; sourceTree = "<group>"; };
 		993F03C71730257500A21C93 /* DIAbstractModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIAbstractModule.h; sourceTree = "<group>"; };
 		993F03C81730257500A21C93 /* DIAbstractModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIAbstractModule.m; sourceTree = "<group>"; };
+		993F0425173169D700A21C93 /* DIInjectorTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIInjectorTest.h; sourceTree = "<group>"; };
+		993F042917316AD200A21C93 /* DIInjectorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIInjectorTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +212,8 @@
 				15A542AE172DBFBA0062531E /* ViewControllerTests.m */,
 				15A542F5172E11CA0062531E /* DIMockConfig.h */,
 				15A542F6172E11CA0062531E /* DIMockConfig.m */,
+				993F0425173169D700A21C93 /* DIInjectorTest.h */,
+				993F042917316AD200A21C93 /* DIInjectorTest.m */,
 			);
 			path = OCInjectionTests;
 			sourceTree = "<group>";
@@ -397,6 +402,7 @@
 			files = (
 				15A542AF172DBFBA0062531E /* ViewControllerTests.m in Sources */,
 				15A542F7172E11CA0062531E /* DIMockConfig.m in Sources */,
+				993F042A17316AD200A21C93 /* DIInjectorTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

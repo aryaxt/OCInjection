@@ -39,7 +39,7 @@
 	if (!isSingleton)
 		[self bindClass:from toClass:to];
 	else
-		[self bindClass:from toClass:[[to alloc] init]];
+		[self bindClass:from toInstance:[[to alloc] init]];
 }
 
 - (void)bindClass:(Class)from toClass:(Class)to
@@ -86,12 +86,12 @@
 
 - (id)injectionObjectForClass:(Class)class
 {
-	return [self injectionObjectForClass:class];
+	return [self injectionObjectForType:NSStringFromClass(class)];
 }
 
 - (id)injectionObjectForProtocol:(Protocol *)protocol
 {
-	return [self injectionObjectForProtocol:protocol];
+	return [self injectionObjectForType:NSStringFromProtocol(protocol)];
 }
 
 - (id)injectionObjectForType:(NSString *)type
