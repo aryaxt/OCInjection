@@ -136,11 +136,10 @@ NSString* typeForProperty(Class class, NSString *propertyName)
 	// Type Attribute For Protocol    T@"<ProtocolName>"
 	// Here we trim these characters to end of with a raw class/protocol name
 	
-	return [[[[[typeAttribute substringFromIndex:1]
-			   stringByReplacingOccurrencesOfString:@"@" withString:@""]
-			  stringByReplacingOccurrencesOfString:@"\"" withString:@""]
-			 stringByReplacingOccurrencesOfString:@"<" withString:@""]
-			stringByReplacingOccurrencesOfString:@">" withString:@""];
+	return [[[[typeAttribute substringFromIndex:3]
+			   stringByReplacingOccurrencesOfString:@"\"" withString:@""]
+			   stringByReplacingOccurrencesOfString:@"<" withString:@""]
+			   stringByReplacingOccurrencesOfString:@">" withString:@""];
 }
 
 id accessorGetter(id self, SEL _cmd)

@@ -24,5 +24,4 @@
 - (id)injectionObjectForProtocol:(Protocol *)protocol;
 - (id)injectionObjectForType:(NSString *)type;
 
-
 @end
