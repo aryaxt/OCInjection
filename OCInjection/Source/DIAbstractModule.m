@@ -34,6 +34,14 @@
 	// Do nothing here
 }
 
+- (void)bindClass:(Class)from toClass:(Class)to asSingleton:(BOOL)isSingleton
+{
+	if (!isSingleton)
+		[self bindClass:from toClass:to];
+	else
+		[self bindClass:from toClass:[[to alloc] init]];
+}
+
 - (void)bindClass:(Class)from toClass:(Class)to
 {
 	[self storeBinding:NSStringFromClass(from) forKey:NSStringFromClass(to)];
@@ -42,6 +50,14 @@
 - (void)bindClass:(Class)class toInstance:(id)instance
 {
 	[self storeBinding:instance forKey:NSStringFromClass(class)];
+}
+
+- (void)bindProtocol:(Protocol *)protocol toClass:(Class)class asSingleton:(BOOL)isSingleton
+{
+	if (!isSingleton)
+		[self bindProtocol:protocol toClass:class];
+	else
+		[self bindProtocol:protocol toInstance:[[class alloc] init]];
 }
 
 - (void)bindProtocol:(Protocol *)protocol toClass:(Class)class
