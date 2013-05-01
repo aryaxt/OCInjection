@@ -75,9 +75,8 @@ static DIInjector *singleton;
 	
     if ([[methodName substringFromIndex:methodName.length-1] isEqual:@":"])
     {
-		NSString *getterName = [[methodName substringFromIndex:3] lowercaseString];
-		getterName = [getterName substringToIndex:getterName.length-1];
-		NSString *objectTypeString = typeForProperty([self class], getterName);
+		NSString *propertyName = propertyNameFromSetterName(methodName);
+		NSString *objectTypeString = typeForProperty([self class], propertyName);
 		
 		if ([singleton.module canResolveObjectForType:objectTypeString])
 		{
@@ -142,17 +141,25 @@ NSString* typeForProperty(Class class, NSString *propertyName)
 			   stringByReplacingOccurrencesOfString:@">" withString:@""];
 }
 
+NSString* propertyNameFromSetterName(NSString *setterName)
+{
+	NSString *propertyName = [setterName substringFromIndex:3];
+	propertyName = [propertyName stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:[[propertyName substringToIndex:1] lowercaseString]];
+	propertyName = [propertyName substringToIndex:propertyName.length-1];
+	return propertyName;
+}
+
 id accessorGetter(id self, SEL _cmd)
 {
 	NSString *propertyName = NSStringFromSelector(_cmd);
-	NSString *typeString = typeForProperty([self class], propertyName);
-	char const * const objectTagKey = [NSStringFromSelector(_cmd) UTF8String];
-	id currentValue = objc_getAssociatedObject(self, objectTagKey);
+	objc_property_t property = class_getProperty([self class], [propertyName UTF8String]);
+	id currentValue = objc_getAssociatedObject(self, property);
 	
 	if (!currentValue)
 	{
+		NSString *typeString = typeForProperty([self class], propertyName);
 		currentValue = currentValue = [singleton.module injectionObjectForType:typeString];
-		objc_setAssociatedObject(self, objectTagKey, currentValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		objc_setAssociatedObject(self, property, currentValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
 	return currentValue;
@@ -160,8 +167,9 @@ id accessorGetter(id self, SEL _cmd)
 
 void accessorSetter(id self, SEL _cmd, id newValue)
 {
-	char const * const objectTagKey = [NSStringFromSelector(_cmd) UTF8String];
-	objc_setAssociatedObject(self, objectTagKey, newValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	NSString *propertyName = propertyNameFromSetterName(NSStringFromSelector(_cmd));
+	objc_property_t property = class_getProperty([self class], [propertyName UTF8String]);
+	objc_setAssociatedObject(self, property, newValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end
