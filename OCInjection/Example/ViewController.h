@@ -12,7 +12,7 @@
 
 @interface ViewController : UIViewController
 
-@property (nonatomic, assign) IBOutlet UIWebView *webView;
+@property (nonatomic, strong) IBOutlet UIWebView *webView;
 @property (nonatomic, strong) YahooClient *yahooClient;
 @property (nonatomic, strong) id <GoogleClientProtocol> googleClient;
 
