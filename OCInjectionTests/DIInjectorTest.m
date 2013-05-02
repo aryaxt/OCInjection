@@ -26,7 +26,7 @@
 	[super tearDown];
 }
 
-- (void)testClassToClassBindingShouldReturnCorrectObjecy
+- (void)testClassToClassBindingShouldReturnCorrectObject
 {
 	[self.module bindClass:[YahooClient class] toClass:[YahooClient class]];
 	id result = [[DIInjector sharedInstance] resolveForClass:[YahooClient class]];
@@ -34,7 +34,7 @@
 	STAssertTrue([result isKindOfClass:[YahooClient class]], @"Did not populate object correctly");
 }
 
-- (void)testProtocolToClassBindingShouldReturnCorrectObjecy
+- (void)testProtocolToClassBindingShouldReturnCorrectObject
 {
 	[self.module bindProtocol:@protocol(ClientProtocol) toClass:[Client class]];
 	id result = [[DIInjector sharedInstance] resolveForProtocol:@protocol(ClientProtocol)];
@@ -42,7 +42,7 @@
 	STAssertTrue([result isKindOfClass:[Client class]], @"Did not populate object correctly");
 }
 
-- (void)testProtocolToInstanceBindingShouldReturnCorrectObjecy
+- (void)testProtocolToInstanceBindingShouldReturnCorrectObject
 {
 	Client *client = [[Client alloc] init];
 	
@@ -52,7 +52,7 @@
 	STAssertTrue(result == client, @"Did not populate object correctly");
 }
 
-- (void)testClassToInstaneBindingShouldReturnCorrectObjecy
+- (void)testClassToInstaneBindingShouldReturnCorrectObject
 {
 	YahooClient *client = [[YahooClient alloc] init];
 	
@@ -62,7 +62,7 @@
 	STAssertTrue(result == client, @"Did not populate object correctly");
 }
 
-- (void)testClassToClassSingletonBindingShouldReturnCorrectObjecy
+- (void)testClassToClassSingletonBindingShouldReturnCorrectObject
 {
 	[self.module bindClass:[YahooClient class] toClass:[YahooClient class] asSingleton:YES];
 	id result1 = [[DIInjector sharedInstance] resolveForClass:[YahooClient class]];
@@ -71,7 +71,7 @@
 	STAssertTrue(result1 == result2, @"Did not populate object correctly");
 }
 
-- (void)testProtocolToClassSingleTonBindingShouldReturnCorrectObjecy
+- (void)testProtocolToClassSingleTonBindingShouldReturnCorrectObject
 {
 	[self.module bindProtocol:@protocol(ClientProtocol) toClass:[Client class] asSingleton:YES];
 	id result1 = [[DIInjector sharedInstance] resolveForProtocol:@protocol(ClientProtocol)];
@@ -80,7 +80,7 @@
 	STAssertTrue(result1 == result2, @"Did not populate object correctly");
 }
 
-- (void)testClassToClassNonSingletonBindingShouldReturnCorrectObjecy
+- (void)testClassToClassNonSingletonBindingShouldReturnCorrectObject
 {
 	[self.module bindClass:[YahooClient class] toClass:[YahooClient class] asSingleton:NO];
 	id result1 = [[DIInjector sharedInstance] resolveForClass:[YahooClient class]];
@@ -89,13 +89,31 @@
 	STAssertTrue(result1 != result2, @"Did not populate object correctly");
 }
 
-- (void)testProtocolToClassNonSingleTonBindingShouldReturnCorrectObjecy
+- (void)testProtocolToClassNonSingleTonBindingShouldReturnCorrectObject
 {
 	[self.module bindProtocol:@protocol(ClientProtocol) toClass:[Client class] asSingleton:NO];
 	id result1 = [[DIInjector sharedInstance] resolveForProtocol:@protocol(ClientProtocol)];
 	id result2 = [[DIInjector sharedInstance] resolveForProtocol:@protocol(ClientProtocol)];
 	
 	STAssertTrue(result1 != result2, @"Did not populate object correctly");
+}
+
+- (void)testClassToClassBindingShouldNotReturnTheSameObject
+{
+	[self.module bindClass:[YahooClient class] toClass:[YahooClient class]];
+	id result = [[DIInjector sharedInstance] resolveForClass:[YahooClient class]];
+	id resul2 = [[DIInjector sharedInstance] resolveForClass:[YahooClient class]];
+	
+	STAssertTrue(result != resul2, @"Did not populate object correctly");
+}
+
+- (void)testProtocolToClassBindingShouldNotReturnTheSameObject
+{
+	[self.module bindProtocol:@protocol(ClientProtocol) toClass:[Client class]];
+	id result = [[DIInjector sharedInstance] resolveForProtocol:@protocol(ClientProtocol)];
+	id result2 = [[DIInjector sharedInstance] resolveForProtocol:@protocol(ClientProtocol)];
+	
+	STAssertTrue(result != result2, @"Did not populate object correctly");
 }
 
 @end
