@@ -20,6 +20,8 @@
 	[self bindClass:[YahooClient class] toClass:[YahooClient class]];
 	[self bindProtocol:@protocol(GoogleClientProtocol) toClass:[GoogleClient class]];
 	[self bindProtocol:@protocol(ClientProtocol) toClass:[Client class]];
+	
+	[super configure];
 }
 
 @end

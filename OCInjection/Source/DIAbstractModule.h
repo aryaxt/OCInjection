@@ -13,6 +13,7 @@
 - (BOOL)canResolveObjectForType:(NSString *)type;
 - (void)configure;
 
+- (void)bindClassToSelf:(Class)class;
 - (void)bindClass:(Class)from toClass:(Class)to;
 - (void)bindClass:(Class)from toClass:(Class)to asSingleton:(BOOL)isSingleton;
 - (void)bindClass:(Class)class toInstance:(id)instance;

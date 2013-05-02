@@ -31,7 +31,16 @@
 
 - (void)configure
 {
-	// Do nothing here
+	[self bindClassToSelf:[NSDateFormatter self]];
+	[self bindClassToSelf:[NSMutableArray self]];
+	[self bindClassToSelf:[NSArray self]];
+	[self bindClassToSelf:[NSMutableDictionary self]];
+	[self bindClassToSelf:[NSDictionary self]];
+}
+
+- (void)bindClassToSelf:(Class)class
+{
+	[self bindClass:class toClass:class];
 }
 
 - (void)bindClass:(Class)from toClass:(Class)to asSingleton:(BOOL)isSingleton
