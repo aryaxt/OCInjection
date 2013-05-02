@@ -9,7 +9,7 @@ This framework is still under development, and it is not meant to be used in pro
 
 Configuring DI Container
 ----------
-In order to configure binding create a new class inheriting from 'DIAbstractModule' and implementing configure 'method'
+In order to configure binding create a new class inheriting from 'DIAbstractModule', and implement configure 'method'
 ```
 #import "DIAbstractModule.h"
 
