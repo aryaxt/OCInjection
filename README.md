@@ -44,7 +44,7 @@ Note that we mark properties as @dynamic when they are intended to be injected
 ```
 @interface ViewController : UIViewController
 
-@property (nonatomic, assign) IBOutlet UIWebView *webView;
+@property (nonatomic, strong) IBOutlet UIWebView *webView;
 @property (nonatomic, strong) YahooClient *yahooClient;
 @property (nonatomic, strong) id <GoogleClientProtocol> googleClient;
 
