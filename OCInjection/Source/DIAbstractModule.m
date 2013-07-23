@@ -109,6 +109,7 @@
 	
 	#warning If it's string it's class name otherwise it's an instance of object
 	#warning Very hacky fix this later
+	#warning using isKindOfClass won't work, because a mock of protocol doesn't implement that method
 	if ([injectionBinding respondsToSelector:@selector(substringFromIndex:)])
 	{
 		Class class = NSClassFromString(injectionBinding);
@@ -130,7 +131,7 @@
 
 - (NSException *)invalidBindingExceptionFrom:(NSString *)from to:(NSString *)to
 {
-	return [NSException exceptionWithName:@"Invalid Binding"
+	return [NSException exceptionWithName:@"InvalidBindingException"
 								   reason:[NSString stringWithFormat:@"%@ does not conform to %@",
 										   from,
 										   to]
@@ -140,7 +141,7 @@
 - (void)validateForExistingBindingForKey:(NSString *)key
 {
 	if ([bindingDictionary objectForKey:key])
-		@throw ([NSException exceptionWithName:@"Invalid Binding"
+		@throw ([NSException exceptionWithName:@"InvalidBindingException"
 										reason:[NSString stringWithFormat:@"Binding already exists for %@", key]
 									  userInfo:nil]);
 }

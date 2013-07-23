@@ -44,7 +44,7 @@ static DIInjector *singleton;
 
 - (id)init
 {
-	@throw ([NSException exceptionWithName:@"Illegal Initializer"
+	@throw ([NSException exceptionWithName:@"IllegalInitializerException"
 									reason:@"Illegal init call, use the sharedInstance method to access the singleton instance."
 								  userInfo:nil]);
 }
