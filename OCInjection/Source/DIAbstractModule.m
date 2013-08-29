@@ -126,9 +126,9 @@
 {
 	id injectionBinding = [self.bindingDictionary objectForKey:type];
 	
-	#warning If it's string it's class name otherwise it's an instance of object
-	#warning Very hacky fix this later
-	#warning using isKindOfClass won't work, because a mock of protocol doesn't implement that method
+	// #warning If it's string it's class name otherwise it's an instance of object
+	// #warning Very hacky fix this later
+	// #warning using isKindOfClass won't work, because a mock of protocol doesn't implement that method
 	if ([injectionBinding respondsToSelector:@selector(substringFromIndex:)])
 	{
 		Class class = NSClassFromString(injectionBinding);
