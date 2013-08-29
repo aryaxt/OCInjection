@@ -9,7 +9,6 @@ Pod::Spec.new do |s|
     }
     s.author = {'Aryan Ghassemi' => 'https://github.com/aryaxt/OCInjection'}
     s.source = {:git => 'https://github.com/aryaxt/OCInjection.git', :tag => '0.0.1'}
-    s.platform = :ios, '6.0'
     s.source_files = 'OCInjection/Source/*.{h,m}'
     s.framework = 'Foundation'
     s.requires_arc = true
