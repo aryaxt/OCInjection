@@ -318,7 +318,7 @@
 		15A5426D172DBFB90062531E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Aryan Ghassemi";
 			};
 			buildConfigurationList = 15A54270172DBFB90062531E /* Build configuration list for PBXProject "OCInjection" */;
@@ -475,6 +475,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
