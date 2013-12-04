@@ -22,6 +22,9 @@ In order to configure binding create a new class inheriting from 'DIAbstractModu
 
 - (void)configure
 {
+        // Binding class-to-class could be used for injecting internal classes (ex: NSDictionary)
+        // This allows you to easily bind the class to a mock object in the test project
+        
 	[self bindClass:[YahooClient class] toClass:[YahooClient class]];
 	[self bindProtocol:@protocol(GoogleClientProtocol) toClass:[GoogleClient class]];
 	[self bindProtocol:@protocol(ClientProtocol) toClass:[Client class]];
