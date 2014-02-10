@@ -97,6 +97,7 @@
 		15C9AC7C18A7FD8B006E6F27 /* DIContructorInjectorProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIContructorInjectorProxy.m; sourceTree = "<group>"; };
 		15C9AC7E18A81C33006E6F27 /* DIInjectionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIInjectionInfo.h; sourceTree = "<group>"; };
 		15C9AC7F18A81C33006E6F27 /* DIInjectionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIInjectionInfo.m; sourceTree = "<group>"; };
+		15C9AC8118A860F0006E6F27 /* YahooClientProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YahooClientProtocol.h; sourceTree = "<group>"; };
 		993F03C71730257500A21C93 /* DIAbstractModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIAbstractModule.h; sourceTree = "<group>"; };
 		993F03C81730257500A21C93 /* DIAbstractModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIAbstractModule.m; sourceTree = "<group>"; };
 		993F0425173169D700A21C93 /* DIInjectorTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIInjectorTest.h; sourceTree = "<group>"; };
@@ -137,6 +138,7 @@
 				15838898172E2D2D006DE713 /* GoogleClientProtocol.h */,
 				15838899172E2D2D006DE713 /* YahooClient.h */,
 				1583889A172E2D2D006DE713 /* YahooClient.m */,
+				15C9AC8118A860F0006E6F27 /* YahooClientProtocol.h */,
 			);
 			path = Services;
 			sourceTree = "<group>";

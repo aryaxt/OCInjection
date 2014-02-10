@@ -233,7 +233,7 @@
 
 #pragma mark - DIContructorInjectorProxyDelegate -
 
-- (void)dIContructorInjectorProxy:(DIContructorInjectorProxy *)proxy didSelectSelector:(SEL)selector withArgumentTypes:(NSArray *)arguments
+- (void)diContructorInjectorProxy:(DIContructorInjectorProxy *)proxy didInvokeSelector:(SEL)selector withArgumentTypes:(NSArray *)arguments
 {
 	DIInjectionInfo *info = [self.bindingDictionary objectForKey:proxy.bindingKey];
 	info.constructorSelector = selector;

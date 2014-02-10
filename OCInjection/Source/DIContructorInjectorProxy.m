@@ -50,6 +50,7 @@
 
 - (id)withConstructor
 {
+	// Just making the method call for defining a constructor more readable by a call to this method first
 	return self;
 }
 
@@ -73,7 +74,7 @@
 		[argumentsPassedToSelector addObject:[NSString stringWithFormat:@"%@", argument]];
 	}
 	
-	[self.delegate dIContructorInjectorProxy:self didSelectSelector:anInvocation.selector withArgumentTypes:argumentsPassedToSelector];
+	[self.delegate diContructorInjectorProxy:self didInvokeSelector:anInvocation.selector withArgumentTypes:argumentsPassedToSelector];
 
     return;
 }

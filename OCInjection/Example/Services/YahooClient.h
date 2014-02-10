@@ -27,10 +27,10 @@
 
 #import <Foundation/Foundation.h>
 #import "ClientProtocol.h"
+#import "YahooClientProtocol.h"
 
-@interface YahooClient : NSObject
+@interface YahooClient : NSObject <YahooClientProtocol>
 
 - (id)initWithClient:(id <ClientProtocol>)client;
-- (id)fetchYahooHomePage;
 
 @end

@@ -29,7 +29,7 @@
 
 @class DIContructorInjectorProxy;
 @protocol DIContructorInjectorProxyDelegate <NSObject>
-- (void)dIContructorInjectorProxy:(DIContructorInjectorProxy *)proxy didSelectSelector:(SEL)selector withArgumentTypes:(NSArray *)arguments;
+- (void)diContructorInjectorProxy:(DIContructorInjectorProxy *)proxy didInvokeSelector:(SEL)selector withArgumentTypes:(NSArray *)arguments;
 @end
 
 @interface DIContructorInjectorProxy : NSProxy

@@ -32,7 +32,7 @@
 @interface ViewController : UIViewController
 
 @property (nonatomic, strong) IBOutlet UIWebView *webView;
-@property (nonatomic, strong) YahooClient *yahooClient;
+@property (nonatomic, strong) id <YahooClientProtocol> yahooClient;
 @property (nonatomic, strong) id <GoogleClientProtocol> googleClient;
 
 - (IBAction)fetchGoogleDataSelected:(id)sender;
