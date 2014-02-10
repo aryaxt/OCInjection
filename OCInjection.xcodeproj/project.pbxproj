@@ -236,11 +236,11 @@
 		15A542D5172E064A0062531E /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				158388B717304DF3006DE713 /* OCInjection.h */,
 				15A542D6172E064A0062531E /* DIInjector.h */,
 				15A542D7172E064A0062531E /* DIInjector.m */,
 				993F03C71730257500A21C93 /* DIAbstractModule.h */,
 				993F03C81730257500A21C93 /* DIAbstractModule.m */,
-				158388B717304DF3006DE713 /* OCInjection.h */,
 				15C9AC7B18A7FD8B006E6F27 /* DIContructorInjectorProxy.h */,
 				15C9AC7C18A7FD8B006E6F27 /* DIContructorInjectorProxy.m */,
 				15C9AC7E18A81C33006E6F27 /* DIInjectionInfo.h */,

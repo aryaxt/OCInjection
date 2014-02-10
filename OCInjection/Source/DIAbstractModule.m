@@ -26,11 +26,6 @@
 // THE SOFTWARE.
 
 #import "DIAbstractModule.h"
-#import "ClientProtocol.h"
-#import "YahooClient.h"
-#import "GoogleClientProtocol.h"
-#import "GoogleClient.h"
-#import "Client.h"
 
 @interface DIAbstractModule() <DIContructorInjectorProxyDelegate>
 @property (nonatomic, strong) NSMutableDictionary *bindingDictionary;
@@ -55,21 +50,26 @@
 
 + (id)_injectMacro:(id)x
 {
+	id result;
+	
 	@try {
-		return NSStringFromProtocol(x);
+		result = NSStringFromProtocol(x);
 	}
 	@catch (NSException *exception) {
 		
 	}
 	
+	if (result)
+		return result;
+	
 	@try {
-		return NSStringFromClass(x);
+		result = NSStringFromClass(x);
 	}
 	@catch (NSException *exception) {
 		
 	}
 	
-	return nil;
+	return result;
 }
 
 #pragma mark - Public Methods -
@@ -171,7 +171,6 @@
 			for (int i=0 ; i<info.constructorArgumentTypes.count ; i++)
 			{
 				NSString *argumentType = [info.constructorArgumentTypes objectAtIndex:i];
-				NSLog(@"%@", argumentType);
 				id injectingArgument = [self injectionObjectForType:argumentType];
 				[invocation setArgument:&injectingArgument atIndex:i+2];
 			}

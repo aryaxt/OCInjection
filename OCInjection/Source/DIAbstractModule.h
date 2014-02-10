@@ -46,6 +46,6 @@
 - (id)injectionObjectForClass:(Class)class;
 - (id)injectionObjectForProtocol:(Protocol *)protocol;
 - (id)injectionObjectForType:(NSString *)type;
-+ (id)_injectMacro:(id)x; /* For internalUseOnly */
++ (id)_injectMacro:(id)x; /* For internal use only */
 
 @end
