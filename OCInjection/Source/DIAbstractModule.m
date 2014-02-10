@@ -48,28 +48,13 @@
 
 #pragma mark - Class Methods -
 
+@import ObjectiveC.Protocol;
 + (id)_injectMacro:(id)x
 {
-	id result;
-	
-	@try {
-		result = NSStringFromProtocol(x);
-	}
-	@catch (NSException *exception) {
-		
-	}
-	
-	if (result)
-		return result;
-	
-	@try {
-		result = NSStringFromClass(x);
-	}
-	@catch (NSException *exception) {
-		
-	}
-	
-	return result;
+	if ([x isKindOfClass:NSClassFromString(@"Protocol")])
+		return NSStringFromProtocol(x);
+	else
+		return NSStringFromClass(x);
 }
 
 #pragma mark - Public Methods -

@@ -26,7 +26,6 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "objc/objc-class.h"
 #import "DIContructorInjectorProxy.h"
 #import "DIInjectionInfo.h"
 
