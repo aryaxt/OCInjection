@@ -27,8 +27,21 @@
 
 #import "GoogleClient.h"
 
+@interface GoogleClient()
+@property (nonatomic, strong) id <ClientProtocol> client;
+@end
+
 @implementation GoogleClient
-@dynamic client;
+
+- (id)initWithClient:(id <ClientProtocol>)client
+{
+	if (self = [super init])
+	{
+		self.client = client;
+	}
+	
+	return self;
+}
 
 - (NSString *)fetchSearchResultForKeyword:(NSString *)keyWord
 {

@@ -36,8 +36,10 @@
 
 - (void)configure
 {
+	(void) [[[self bindProtocol:@protocol(GoogleClientProtocol) toClass:[GoogleClient class]] withConstructor]
+			initWithClient:Inject(@protocol(ClientProtocol))];
+	
 	[self bindClass:[YahooClient class] toClass:[YahooClient class]];
-	[self bindProtocol:@protocol(GoogleClientProtocol) toClass:[GoogleClient class]];
 	[self bindProtocol:@protocol(ClientProtocol) toClass:[Client class]];
 	
 	[super configure];

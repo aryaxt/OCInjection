@@ -27,8 +27,21 @@
 
 #import "YahooClient.h"
 
+@interface YahooClient()
+@property (nonatomic, strong) id <ClientProtocol> client;
+@end
+
 @implementation YahooClient
-@dynamic client;
+
+- (id)initWithClient:(id <ClientProtocol>)client
+{
+	if (self = [super init])
+	{
+		self.client = client;
+	}
+	
+	return self;
+}
 
 - (id)fetchYahooHomePage
 {

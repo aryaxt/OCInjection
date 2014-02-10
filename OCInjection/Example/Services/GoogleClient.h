@@ -31,6 +31,6 @@
 
 @interface GoogleClient : NSObject <GoogleClientProtocol>
 
-@property (nonatomic, strong) id <ClientProtocol> client;
+- (id)initWithClient:(id <ClientProtocol>)client;
 
 @end

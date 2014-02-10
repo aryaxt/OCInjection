@@ -30,8 +30,7 @@
 
 @interface YahooClient : NSObject
 
-@property (nonatomic, strong) id <ClientProtocol> client;
-
+- (id)initWithClient:(id <ClientProtocol>)client;
 - (id)fetchYahooHomePage;
 
 @end
