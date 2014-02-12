@@ -58,6 +58,11 @@
 
 - (void)forwardInvocation:(NSInvocation *)anInvocation
 {
+	if (![self.object respondsToSelector:anInvocation.selector])
+		@throw [NSException exceptionWithName:@"UnrecognizedSelector"
+									   reason:[NSString stringWithFormat:@"Unrecognized selector [%@ %@]", NSStringFromClass(self.proxyClass), NSStringFromSelector(anInvocation.selector)]
+									 userInfo:nil];
+	
 	NSMutableString *selectorName = [NSStringFromSelector(anInvocation.selector) mutableCopy];
 	NSUInteger numberOfColumnsInMethodName = [selectorName replaceOccurrencesOfString:@":"
 																		   withString:@":"

@@ -26,23 +26,24 @@
 // THE SOFTWARE.
 
 #import "DIConfig.h"
-#import "GoogleClientProtocol.h"
-#import "GoogleClient.h"
-#import "YahooClient.h"
 #import "ClientProtocol.h"
 #import "Client.h"
+#import "ApplicationConfiguration.h"
+#import "ApplicationConfigurationProtocol.h"
+#import "GitHubClientProtocol.h"
+#import "GitHubClient.h"
 
 @implementation DIConfig
 
 - (void)configure
 {
-	(void)[[[self bindProtocol:@protocol(GoogleClientProtocol) toClass:[GoogleClient class]] withConstructor]
-			initWithClient:Inject(@protocol(ClientProtocol))];
+	[self bindProtocol:@protocol(ApplicationConfigurationProtocol) toClass:[ApplicationConfiguration class] asSingleton:YES];
+
+	(void) [[[self bindProtocol:@protocol(ClientProtocol) toClass:[Client class] asSingleton:YES] withConstructor]
+		initWithApplicationConfiguration:Inject(@protocol(ApplicationConfigurationProtocol))];
 	
-	(void)[[[self bindProtocol:@protocol(YahooClientProtocol) toClass:[YahooClient class]] withConstructor]
-			initWithClient:Inject(@protocol(ClientProtocol))];
-	
-	[self bindProtocol:@protocol(ClientProtocol) toClass:[Client class]];
+	(void) [[[self bindProtocol:@protocol(GitHubClientProtocol) toClass:[GitHubClient class]] withConstructor]
+		initWithClient:Inject(@protocol(ClientProtocol))];
 	
 	[super configure];
 }

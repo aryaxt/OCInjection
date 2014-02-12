@@ -29,10 +29,10 @@
 
 @interface DIAbstractModule() <DIContructorInjectorProxyDelegate>
 @property (nonatomic, strong) NSMutableDictionary *bindingDictionary;
+@property (nonatomic, strong) NSMutableDictionary *singletonContainer;
 @end
 
 @implementation DIAbstractModule
-@synthesize bindingDictionary;
 
 #pragma mark - Initialization -
 
@@ -41,6 +41,7 @@
 	if (self = [super init])
 	{
 		self.bindingDictionary = [NSMutableDictionary dictionary];
+		self.singletonContainer = [NSMutableDictionary dictionary];
 	}
 	
 	return self;
@@ -48,13 +49,24 @@
 
 #pragma mark - Class Methods -
 
-@import ObjectiveC.Protocol;
-+ (id)_injectMacro:(id)x
++ (id)stringFromClassOrProtocol:(id)x
 {
 	if ([x isKindOfClass:NSClassFromString(@"Protocol")])
 		return NSStringFromProtocol(x);
 	else
 		return NSStringFromClass(x);
+}
+
++ (id)classOrProtocolFromString:(NSString *)string
+{
+	id result;
+	
+	result = NSProtocolFromString(string);
+	
+	if (!result)
+		result = NSClassFromString(string);
+	
+	return result;
 }
 
 #pragma mark - Public Methods -
@@ -75,28 +87,23 @@
 
 - (DIContructorInjectorProxy *)bindClass:(Class)from toClass:(Class)to asSingleton:(BOOL)isSingleton
 {
-	if (!isSingleton)
-		return [self bindClass:from toClass:to];
-	else
-		return [self bindClass:from toInstance:[[to alloc] init]];
+	return [self storeBinding:to forKey:from asSingleton:isSingleton];
 }
 
 - (DIContructorInjectorProxy *)bindClass:(Class)from toClass:(Class)to
 {
-	return [self storeBinding:NSStringFromClass(from) forKey:NSStringFromClass(to)];
+	return [self storeBinding:from forKey:to asSingleton:NO];
 }
 
 - (DIContructorInjectorProxy *)bindClass:(Class)class toInstance:(id)instance
 {
-	return [self storeBinding:instance forKey:NSStringFromClass(class)];
+	[self storeObjectAsSingleton:instance forBinding:class];
+	return [self storeBinding:[instance class] forKey:class asSingleton:YES];
 }
 
 - (DIContructorInjectorProxy *)bindProtocol:(Protocol *)protocol toClass:(Class)class asSingleton:(BOOL)isSingleton
 {
-	if (!isSingleton)
-		return [self bindProtocol:protocol toClass:class];
-	else
-		return [self bindProtocol:protocol toInstance:[[class alloc] init]];
+	return [self storeBinding:class forKey:protocol asSingleton:isSingleton];
 }
 
 - (DIContructorInjectorProxy *)bindProtocol:(Protocol *)protocol toClass:(Class)class
@@ -104,7 +111,7 @@
 	if (![class conformsToProtocol:protocol])
 		@throw ([self invalidBindingExceptionFrom:NSStringFromClass(class) to:NSStringFromProtocol(protocol)]);
 	
-	return [self storeBinding:NSStringFromClass(class) forKey:NSStringFromProtocol(protocol)];
+	return [self storeBinding:class forKey:protocol asSingleton:NO];
 }
 
 - (DIContructorInjectorProxy *)bindProtocol:(Protocol *)protocol toInstance:(id)instance
@@ -112,12 +119,14 @@
 	if (![instance conformsToProtocol:protocol])
 		@throw ([self invalidBindingExceptionFrom:[instance description] to:NSStringFromProtocol(protocol)]);
 	
-	return [self storeBinding:instance forKey:NSStringFromProtocol(protocol)];
+	[self storeObjectAsSingleton:instance forBinding:protocol];
+	return [self storeBinding:[instance class] forKey:protocol asSingleton:YES];
+	
 }
 
-- (BOOL)canResolveObjectForType:(NSString *)type
+- (BOOL)canResolveObjectForType:(id)classOrProtocol
 {
-	if ([self.bindingDictionary objectForKey:type])
+	if ([self.bindingDictionary objectForKey:[DIAbstractModule stringFromClassOrProtocol:classOrProtocol]])
 		return YES;
 	
 	return NO;
@@ -133,70 +142,64 @@
 	return [self injectionObjectForType:NSStringFromProtocol(protocol)];
 }
 
-- (id)injectionObjectForType:(NSString *)type
+- (id)injectionObjectForType:(id)classOrrotocol
 {
-	DIInjectionInfo *info = [self.bindingDictionary objectForKey:type];
+	id instance = nil;
+	NSString *classOrProtocolString = [DIAbstractModule stringFromClassOrProtocol:classOrrotocol];
+	DIInjectionInfo *info = [self.bindingDictionary objectForKey:classOrProtocolString];
 	
-	// #warning If it's string it's class name otherwise it's an instance of object
-	// #warning Very hacky fix this later
-	// #warning using isKindOfClass won't work, because a mock of protocol doesn't implement that method
-	if ([info.injectionClassNameOrInstance respondsToSelector:@selector(substringFromIndex:)])
+	if (info.isSingleton)
 	{
-		Class class = NSClassFromString(info.injectionClassNameOrInstance);
+		instance = [self.singletonContainer objectForKey:classOrProtocolString];
 		
-		if (info.constructorSelector)
+		if (instance)
+			return instance;
+	}
+
+	if (info.constructorSelector)
+	{
+		instance = [info.injectionClass alloc];
+		
+		NSMethodSignature *signature = [info.injectionClass instanceMethodSignatureForSelector:info.constructorSelector];
+		NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+		[invocation setSelector:info.constructorSelector];
+		[invocation setTarget:instance];
+		
+		for (int i=0 ; i<info.constructorArgumentTypes.count ; i++)
 		{
-			id initInvocationResult = [class alloc];
-			
-			NSMethodSignature *signature = [class instanceMethodSignatureForSelector:info.constructorSelector];
-			NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
-			[invocation setSelector:info.constructorSelector];
-			[invocation setTarget:initInvocationResult];
-			
-			for (int i=0 ; i<info.constructorArgumentTypes.count ; i++)
-			{
-				NSString *argumentType = [info.constructorArgumentTypes objectAtIndex:i];
-				id injectingArgument = [self injectionObjectForType:argumentType];
-				[invocation setArgument:&injectingArgument atIndex:i+2];
-			}
-			
-			[invocation retainArguments];
-			[invocation invoke];
-			[invocation getReturnValue:&initInvocationResult];
-			
-			return initInvocationResult;
+			NSString *argumentType = [info.constructorArgumentTypes objectAtIndex:i];
+			id injectingArgument = [self injectionObjectForType:[DIAbstractModule classOrProtocolFromString:argumentType]];
+			[invocation setArgument:&injectingArgument atIndex:i+2];
 		}
-		else
-		{
-			return [[class alloc] init];
-		}
+		
+		[invocation retainArguments];
+		[invocation invoke];
+		[invocation getReturnValue:&instance];
 	}
 	else
 	{
-		return info.injectionClassNameOrInstance;
+		instance = [[info.injectionClass alloc] init];
 	}
+	
+	if (info.isSingleton && instance)
+		[self storeObjectAsSingleton:instance forBinding:classOrrotocol];
+
+	return instance;
 }
 
 #pragma mark - Private Methods -
 
-- (DIContructorInjectorProxy *)storeBinding:(id)binding forKey:(NSString *)key
+- (DIContructorInjectorProxy *)storeBinding:(Class)class forKey:(id)classOrProtocol asSingleton:(BOOL)singleton
 {
-	[self validateForExistingBindingForKey:key];
+	NSString *classOrProtocolName = [DIAbstractModule stringFromClassOrProtocol:classOrProtocol];
+	[self validateForExistingBindingForKey:classOrProtocolName];
 	
 	DIInjectionInfo *info = [[DIInjectionInfo alloc] init];
-	info.injectionClassNameOrInstance = binding;
-	[self.bindingDictionary setObject:info forKey:key];
+	info.injectionClass = class;
+	info.isSingleton = singleton;
+	[self.bindingDictionary setObject:info forKey:classOrProtocolName];
 	
-	Class class;
-	
-	// NSString is class name
-	if ([binding isKindOfClass:[NSString class]])
-		class = NSClassFromString(binding);
-	// Non NSStirng is an actual instance
-	else
-		class = [binding class];
-		
-	return [[DIContructorInjectorProxy alloc] initWithClass:class bindingKey:key andDelegate:self];
+	return [[DIContructorInjectorProxy alloc] initWithClass:class bindingKey:classOrProtocolName andDelegate:self];
 }
 
 - (NSException *)invalidBindingExceptionFrom:(NSString *)from to:(NSString *)to
@@ -210,10 +213,15 @@
 
 - (void)validateForExistingBindingForKey:(NSString *)key
 {
-	if ([bindingDictionary objectForKey:key])
+	if ([self.bindingDictionary objectForKey:key])
 		@throw ([NSException exceptionWithName:@"InvalidBindingException"
 										reason:[NSString stringWithFormat:@"Binding already exists for %@", key]
 									  userInfo:nil]);
+}
+
+- (void)storeObjectAsSingleton:(id)object forBinding:(id)classOrProtocol
+{
+	[self.singletonContainer setObject:object forKey:[DIAbstractModule stringFromClassOrProtocol:classOrProtocol]];
 }
 
 #pragma mark - DIContructorInjectorProxyDelegate -

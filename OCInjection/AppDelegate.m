@@ -28,6 +28,7 @@
 #import "AppDelegate.h"
 #import "OCInjection.h"
 #import "DIConfig.h"
+#import "OCMapperConfig.h"
 
 @implementation AppDelegate
 
@@ -35,6 +36,8 @@
 {
 	DIConfig *config = [[DIConfig alloc] init];
 	[[DIInjector sharedInstance] setDefaultModule:config];
+	
+	[OCMapperConfig configure];
 	
     // Override point for customization after application launch.
     return YES;

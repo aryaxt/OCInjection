@@ -1,11 +1,11 @@
 //
-//  OCDependencyInjectionTests.m
-//  OCDependencyInjectionTests
+//  NSDictionary+ObjectMapper.m
+//  OCMapper
 //
-//  Created by Aryan Gh on 4/28/13.
+//  Created by Aryan Gh on 4/14/13.
 //  Copyright (c) 2013 Aryan Ghassemi. All rights reserved.
 //
-// https://github.com/aryaxt/OCInjection
+// https://github.com/aryaxt/OCMapper
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,45 +25,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "ViewControllerTests.h"
+#import "NSDictionary+ObjectMapper.h"
 
-@implementation ViewControllerTests
-@synthesize viewController;
+@implementation NSDictionary (ObjectMapper)
 
-#pragma mark - Setup & TearDown -
-
-- (void)setUp
+- (id)objectForClass:(Class)class
 {
-    [super setUp];
-    
-	DIMockConfig *module = [[DIMockConfig alloc] init];
-	[[DIInjector sharedInstance] setDefaultModule:module];
-	
-    self.viewController = [[ViewController alloc] init];
+	return [[ObjectMapper sharedInstance] objectFromSource:self toInstanceOfClass:class];
 }
 
-- (void)tearDown
+- (NSDictionary *)dictionaryFromObject:(NSObject *)object
 {
-    self.viewController =  nil;
-    
-    [super tearDown];
+	return [[ObjectMapper sharedInstance] dictionaryFromObject:object];
 }
 
-#pragma mark - Tests -
-
-- (void)testShouldCallCleintWithGoogleUrl
+- (NSDictionary *)dictionaryFromObject:(NSObject *)object wrappedInParentWithKey:(NSString *)key
 {
-	static NSString *expectedSearchTerm = @"DependencyInjection";
-	[[(OCMockObject *)self.viewController.googleClient expect] fetchSearchResultForKeyword:expectedSearchTerm];
-	[self.viewController fetchGoogleDataSelected:nil];
-	[(OCMockObject *)self.viewController.googleClient verify];
-}
-
-- (void)testShouldCallCleintWithYahoo
-{
-	[[(OCMockObject *)self.viewController.yahooClient expect] fetchYahooHomePage];
-	[self.viewController fetchYahooDataSelected:nil];
-	[(OCMockObject *)self.viewController.yahooClient verify];
+	return [NSDictionary dictionaryWithObject:[self dictionaryFromObject:object] forKey:key];
 }
 
 @end

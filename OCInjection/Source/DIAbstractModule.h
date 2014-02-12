@@ -29,22 +29,22 @@
 #import "DIContructorInjectorProxy.h"
 #import "DIInjectionInfo.h"
 
-#define Inject(x) [DIAbstractModule _injectMacro:x]
+#define Inject(x) [DIAbstractModule stringFromClassOrProtocol:x]
 
 @interface DIAbstractModule : NSObject
 
-- (BOOL)canResolveObjectForType:(NSString *)type;
++ (id)stringFromClassOrProtocol:(id)x; /* For internal use only */
+- (BOOL)canResolveObjectForType:(id)classOrProtocol;
 - (void)configure;
-- (id)bindClassToSelf:(Class)class;
+- (id)injectionObjectForClass:(Class)class;
+- (id)injectionObjectForProtocol:(Protocol *)protocol;
+- (id)injectionObjectForType:(id)classOrProtocol;
+- (DIContructorInjectorProxy *)bindClassToSelf:(Class)class;
 - (DIContructorInjectorProxy *)bindClass:(Class)from toClass:(Class)to;
 - (DIContructorInjectorProxy *)bindClass:(Class)from toClass:(Class)to asSingleton:(BOOL)isSingleton;
 - (DIContructorInjectorProxy *)bindClass:(Class)class toInstance:(id)instance;
 - (DIContructorInjectorProxy *)bindProtocol:(Protocol *)protocol toClass:(Class)class;
 - (DIContructorInjectorProxy *)bindProtocol:(Protocol *)protocol toClass:(Class)class asSingleton:(BOOL)isSingleton;
 - (DIContructorInjectorProxy *)bindProtocol:(Protocol *)protocol toInstance:(id)instance;
-- (id)injectionObjectForClass:(Class)class;
-- (id)injectionObjectForProtocol:(Protocol *)protocol;
-- (id)injectionObjectForType:(NSString *)type;
-+ (id)_injectMacro:(id)x; /* For internal use only */
 
 @end

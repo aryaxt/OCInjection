@@ -45,5 +45,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>Service_URL</key>
+	<string>https://api.github.com</string>
 </dict>
 </plist>

@@ -45,7 +45,7 @@
 	[super tearDown];
 }
 
-- (void)testClassToClassBindingShouldReturnCorrectObjectType
+/*- (void)testClassToClassBindingShouldReturnCorrectObjectType
 {
 	[self.module bindClass:[YahooClient class] toClass:[YahooClient class]];
 	id result = [[DIInjector sharedInstance] resolveForClass:[YahooClient class]];
@@ -133,6 +133,6 @@
 	id result2 = [[DIInjector sharedInstance] resolveForProtocol:@protocol(ClientProtocol)];
 	
 	STAssertTrue(result != result2, @"Did not populate object correctly");
-}
+}*/
 
 @end

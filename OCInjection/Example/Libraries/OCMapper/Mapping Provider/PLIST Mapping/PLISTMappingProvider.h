@@ -1,11 +1,11 @@
 //
-//  OCDependencyInjectionTests.h
-//  OCDependencyInjectionTests
+//  PLISTMappingProvider.h
+//  OCMapper
 //
-//  Created by Aryan Gh on 4/28/13.
+//  Created by Aryan Gh on 4/23/13.
 //  Copyright (c) 2013 Aryan Ghassemi. All rights reserved.
 //
-// https://github.com/aryaxt/OCInjection
+// https://github.com/aryaxt/OCMapper
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,14 +25,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <SenTestingKit/SenTestingKit.h>
-#import "OCMock.h"
-#import "ViewController.h"
-#import "DIMockConfig.h"
-#import "OCInjection.h"
+#import <Foundation/Foundation.h>
+#import "MappingProvider.h"
+#import "ObjectMappingInfo.h"
 
-@interface ViewControllerTests : SenTestCase
+@interface PLISTMappingProvider : NSObject <MappingProvider>
 
-@property (nonatomic, strong) ViewController *viewController;
+- (id)initWithFileName:(NSString *)fileName;
 
 @end

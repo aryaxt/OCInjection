@@ -27,8 +27,6 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 #import "OCInjection.h"
-#import "YahooClient.h"
-#import "GoogleClient.h"
 #import "Client.h"
 
 @interface DIInjectorTest : SenTestCase

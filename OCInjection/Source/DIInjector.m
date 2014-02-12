@@ -95,7 +95,7 @@ static DIInjector *singleton;
     if ([[methodName substringFromIndex:methodName.length-1] isEqual:@":"])
     {
 		NSString *propertyName = propertyNameFromSetterName(methodName);
-		NSString *objectTypeString = typeForProperty([self class], propertyName);
+		id objectTypeString = typeForProperty([self class], propertyName);
 		
 		if ([singleton.module canResolveObjectForType:objectTypeString])
 		{
@@ -105,7 +105,7 @@ static DIInjector *singleton;
     }
     else
     {
-		NSString *objectTypeString = typeForProperty([self class], methodName);
+		id objectTypeString = typeForProperty([self class], methodName);
 		
 		if ([singleton.module canResolveObjectForType:objectTypeString])
 		{
@@ -140,7 +140,10 @@ bool classHasProperty(Class class, NSString *testPropertyName)
 	return NO;
 }
 
-NSString* typeForProperty(Class class, NSString *propertyName)
+/* 
+ returns a protocol or a class representing a property 
+*/
+id typeForProperty(Class class, NSString *propertyName)
 {
 	if (!classHasProperty(class, propertyName))
 		return nil;
@@ -154,10 +157,17 @@ NSString* typeForProperty(Class class, NSString *propertyName)
 	// Type Attribute For Protocol    T@"<ProtocolName>"
 	// Here we trim these characters to end of with a raw class/protocol name
 	
-	return [[[[typeAttribute substringFromIndex:3]
+	BOOL isProtocol = [typeAttribute rangeOfString:@"<"].length ? YES : NO;;
+	
+	typeAttribute = [[[[typeAttribute substringFromIndex:3]
 			   stringByReplacingOccurrencesOfString:@"\"" withString:@""]
 			   stringByReplacingOccurrencesOfString:@"<" withString:@""]
 			   stringByReplacingOccurrencesOfString:@">" withString:@""];
+	
+	if (isProtocol)
+		return NSProtocolFromString(typeAttribute);
+	else
+		return NSClassFromString(typeAttribute);
 }
 
 NSString* propertyNameFromSetterName(NSString *setterName)
@@ -176,7 +186,7 @@ id accessorGetter(id self, SEL _cmd)
 	
 	if (!currentValue)
 	{
-		NSString *typeString = typeForProperty([self class], propertyName);
+		id typeString = typeForProperty([self class], propertyName);
 		currentValue = currentValue = [singleton.module injectionObjectForType:typeString];
 		objc_setAssociatedObject(self, property, currentValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
