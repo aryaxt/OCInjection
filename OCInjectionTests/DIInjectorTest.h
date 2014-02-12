@@ -29,6 +29,10 @@
 #import "OCInjection.h"
 #import "Client.h"
 #import "ClientProtocol.h"
+#import "ApplicationConfiguration.h"
+#import "ApplicationConfigurationProtocol.h"
+#import "GitHubClient.h"
+#import "GitHubClientProtocol.h"
 
 @interface DIInjectorTest : SenTestCase
 

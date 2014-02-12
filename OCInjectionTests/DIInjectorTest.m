@@ -28,7 +28,6 @@
 #import "DIInjectorTest.h"
 
 @implementation DIInjectorTest
-@synthesize module;
 
 #pragma mark - Setup &* Teardown -
 
@@ -137,6 +136,54 @@
 	id result2 = [[DIInjector sharedInstance] resolveForProtocol:@protocol(ClientProtocol)];
 	
 	STAssertTrue(result != result2, @"Did not populate object correctly");
+}
+
+- (void)testConstructorInjectionShouldInjectDependencies
+{
+	[self.module bindProtocol:@protocol(ClientProtocol) toClass:[Client class]];
+	
+	(void)[[[self.module bindProtocol:@protocol(GitHubClientProtocol) toClass:[GitHubClient class]] withConstructor]
+		   initWithClient:Inject(@protocol(ClientProtocol))];
+	
+	GitHubClient *githubClient = [[DIInjector sharedInstance] resolveForProtocol:@protocol(GitHubClientProtocol)];
+	STAssertNotNil([githubClient valueForKey:@"client"], @"Did not inject value in contructor");
+	STAssertTrue([[githubClient valueForKey:@"client"] isKindOfClass:[Client class]], @"Did not inject correct type");
+}
+
+- (void)testConstructorInjectionShouldInjectProtocolDependenciesAsSingletonWhenDefined
+{
+	[self.module bindProtocol:@protocol(ClientProtocol) toClass:[Client class] asSingleton:YES];
+	
+	(void)[[[self.module bindProtocol:@protocol(GitHubClientProtocol) toClass:[GitHubClient class]] withConstructor]
+		   initWithClient:Inject(@protocol(ClientProtocol))];
+	
+	GitHubClient *githubClient = [[DIInjector sharedInstance] resolveForProtocol:@protocol(GitHubClientProtocol)];
+	GitHubClient *githubClient2 = [[DIInjector sharedInstance] resolveForProtocol:@protocol(GitHubClientProtocol)];
+	STAssertTrue([githubClient valueForKey:@"client"] == [githubClient2 valueForKey:@"client"], @"Did not inject value as singleton");
+}
+
+- (void)testConstructorInjectionShouldInjectClassDependenciesAsSingletonWhenDefined
+{
+	[self.module bindClass:[Client class] toClass:[Client class] asSingleton:YES];
+	
+	(void)[[[self.module bindProtocol:@protocol(GitHubClientProtocol) toClass:[GitHubClient class]] withConstructor]
+		   initWithClient:Inject([Client class])];
+	
+	GitHubClient *githubClient = [[DIInjector sharedInstance] resolveForProtocol:@protocol(GitHubClientProtocol)];
+	GitHubClient *githubClient2 = [[DIInjector sharedInstance] resolveForProtocol:@protocol(GitHubClientProtocol)];
+	STAssertTrue([githubClient valueForKey:@"client"] == [githubClient2 valueForKey:@"client"], @"Did not inject value as singleton");
+}
+
+- (void)testConstructorInjectionShouldNotInjectDependenciesAsSingletonWhenNotDefined
+{
+	[self.module bindProtocol:@protocol(ClientProtocol) toClass:[Client class] asSingleton:NO];
+	
+	(void)[[[self.module bindProtocol:@protocol(GitHubClientProtocol) toClass:[GitHubClient class]] withConstructor]
+		   initWithClient:Inject(@protocol(ClientProtocol))];
+	
+	GitHubClient *githubClient = [[DIInjector sharedInstance] resolveForProtocol:@protocol(GitHubClientProtocol)];
+	GitHubClient *githubClient2 = [[DIInjector sharedInstance] resolveForProtocol:@protocol(GitHubClientProtocol)];
+	STAssertTrue([githubClient valueForKey:@"client"] != [githubClient2 valueForKey:@"client"], @"Did not inject value as singleton");
 }
 
 @end
