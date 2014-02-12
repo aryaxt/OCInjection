@@ -28,6 +28,7 @@
 #import <SenTestingKit/SenTestingKit.h>
 #import "OCInjection.h"
 #import "Client.h"
+#import "ClientProtocol.h"
 
 @interface DIInjectorTest : SenTestCase
 

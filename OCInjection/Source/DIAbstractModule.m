@@ -134,12 +134,12 @@
 
 - (id)injectionObjectForClass:(Class)class
 {
-	return [self injectionObjectForType:NSStringFromClass(class)];
+	return [self injectionObjectForType:class];
 }
 
 - (id)injectionObjectForProtocol:(Protocol *)protocol
 {
-	return [self injectionObjectForType:NSStringFromProtocol(protocol)];
+	return [self injectionObjectForType:protocol];
 }
 
 - (id)injectionObjectForType:(id)classOrrotocol
