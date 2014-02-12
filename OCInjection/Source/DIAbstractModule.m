@@ -49,12 +49,12 @@
 
 #pragma mark - Class Methods -
 
-+ (id)stringFromClassOrProtocol:(id)x
++ (id)stringFromClassOrProtocol:(id)classOrProtocol
 {
-	if ([x isKindOfClass:NSClassFromString(@"Protocol")])
-		return NSStringFromProtocol(x);
+	if ([classOrProtocol isKindOfClass:NSClassFromString(@"Protocol")])
+		return NSStringFromProtocol(classOrProtocol);
 	else
-		return NSStringFromClass(x);
+		return NSStringFromClass(classOrProtocol);
 }
 
 + (id)classOrProtocolFromString:(NSString *)string

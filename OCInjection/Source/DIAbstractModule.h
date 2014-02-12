@@ -33,7 +33,7 @@
 
 @interface DIAbstractModule : NSObject
 
-+ (id)stringFromClassOrProtocol:(id)x; /* For internal use only */
++ (id)stringFromClassOrProtocol:(id)classOrProtocol; /* For internal use only */
 - (BOOL)canResolveObjectForType:(id)classOrProtocol;
 - (void)configure;
 - (id)injectionObjectForClass:(Class)class;
