@@ -138,9 +138,7 @@
 			{
 				Class class = classes[i];
 				
-#warning uncomment this line to improve performace, after SUP is gone
-#warning Stupoid SUP causes a crash when SUP related classes go through this if statement
-				//if ([NSBundle bundleForClass:class] == [NSBundle mainBundle])
+				if ([NSBundle bundleForClass:class] == [NSBundle mainBundle])
 					[self.classNamesInMainBundle addObject:NSStringFromClass(class)];
 			}
 		}

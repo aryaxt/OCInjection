@@ -16,7 +16,7 @@
 {
 	if (self = [super init])
 	{
-		NSString *filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"xml"];
+		//NSString *filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"xml"];
 
 	}
 	

@@ -28,6 +28,8 @@
 		15A5432B172E1F040062531E /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A54323172E1F040062531E /* libOCMock.a */; };
 		15C9AC7D18A7FD8B006E6F27 /* DIContructorInjectorProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C9AC7C18A7FD8B006E6F27 /* DIContructorInjectorProxy.m */; };
 		15C9AC8018A81C33006E6F27 /* DIInjectionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C9AC7F18A81C33006E6F27 /* DIInjectionInfo.m */; };
+		15C9ACC118AB27D2006E6F27 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C9ACC018AB27D2006E6F27 /* SystemConfiguration.framework */; };
+		15C9ACC318AB27EC006E6F27 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C9ACC218AB27EC006E6F27 /* MobileCoreServices.framework */; };
 		993F03C91730257500A21C93 /* DIAbstractModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 993F03C81730257500A21C93 /* DIAbstractModule.m */; };
 		993F042A17316AD200A21C93 /* DIInjectorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 993F042917316AD200A21C93 /* DIInjectorTest.m */; };
 		99FA8F4C18AA901100CA4AE1 /* DIConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 99FA8F3D18AA901100CA4AE1 /* DIConfig.m */; };
@@ -109,6 +111,8 @@
 		15C9AC7C18A7FD8B006E6F27 /* DIContructorInjectorProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIContructorInjectorProxy.m; sourceTree = "<group>"; };
 		15C9AC7E18A81C33006E6F27 /* DIInjectionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIInjectionInfo.h; sourceTree = "<group>"; };
 		15C9AC7F18A81C33006E6F27 /* DIInjectionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIInjectionInfo.m; sourceTree = "<group>"; };
+		15C9ACC018AB27D2006E6F27 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		15C9ACC218AB27EC006E6F27 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		993F03C71730257500A21C93 /* DIAbstractModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIAbstractModule.h; sourceTree = "<group>"; };
 		993F03C81730257500A21C93 /* DIAbstractModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIAbstractModule.m; sourceTree = "<group>"; };
 		993F0425173169D700A21C93 /* DIInjectorTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIInjectorTest.h; sourceTree = "<group>"; };
@@ -185,6 +189,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15C9ACC318AB27EC006E6F27 /* MobileCoreServices.framework in Frameworks */,
+				15C9ACC118AB27D2006E6F27 /* SystemConfiguration.framework in Frameworks */,
 				15A5427B172DBFB90062531E /* UIKit.framework in Frameworks */,
 				15A5427D172DBFB90062531E /* Foundation.framework in Frameworks */,
 				15A5427F172DBFB90062531E /* CoreGraphics.framework in Frameworks */,
@@ -227,6 +233,8 @@
 		15A54279172DBFB90062531E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				15C9ACC218AB27EC006E6F27 /* MobileCoreServices.framework */,
+				15C9ACC018AB27D2006E6F27 /* SystemConfiguration.framework */,
 				15A5427A172DBFB90062531E /* UIKit.framework */,
 				15A5427C172DBFB90062531E /* Foundation.framework */,
 				15A5427E172DBFB90062531E /* CoreGraphics.framework */,
