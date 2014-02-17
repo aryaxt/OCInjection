@@ -26,6 +26,7 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "DIConstructorArgument.h"
 
 @class DIContructorInjectorProxy;
 @protocol DIContructorInjectorProxyDelegate <NSObject>

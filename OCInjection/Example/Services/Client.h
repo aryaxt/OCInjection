@@ -31,6 +31,6 @@
 
 @interface Client : NSObject <ClientProtocol>
 
-- (id)initWithApplicationConfiguration:(id <ApplicationConfigurationProtocol>)config;
+- (id)initWithApplicationConfiguration:(id <ApplicationConfigurationProtocol>)config andTimeout:(NSNumber *)timeout;
 
 @end

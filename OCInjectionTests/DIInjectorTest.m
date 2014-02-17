@@ -143,7 +143,7 @@
 	[self.module bindProtocol:@protocol(ClientProtocol) toClass:[Client class]];
 	
 	(void)[[[self.module bindProtocol:@protocol(GitHubClientProtocol) toClass:[GitHubClient class]] withConstructor]
-		   initWithClient:Inject(@protocol(ClientProtocol))];
+		   initWithClient:InjectBinding(@protocol(ClientProtocol))];
 	
 	GitHubClient *githubClient = [[DIInjector sharedInstance] resolveForProtocol:@protocol(GitHubClientProtocol)];
 	STAssertNotNil([githubClient valueForKey:@"client"], @"Did not inject value in contructor");
@@ -155,7 +155,7 @@
 	[self.module bindProtocol:@protocol(ClientProtocol) toClass:[Client class] asSingleton:YES];
 	
 	(void)[[[self.module bindProtocol:@protocol(GitHubClientProtocol) toClass:[GitHubClient class]] withConstructor]
-		   initWithClient:Inject(@protocol(ClientProtocol))];
+		   initWithClient:InjectBinding(@protocol(ClientProtocol))];
 	
 	GitHubClient *githubClient = [[DIInjector sharedInstance] resolveForProtocol:@protocol(GitHubClientProtocol)];
 	GitHubClient *githubClient2 = [[DIInjector sharedInstance] resolveForProtocol:@protocol(GitHubClientProtocol)];
@@ -167,7 +167,7 @@
 	[self.module bindClass:[Client class] toClass:[Client class] asSingleton:YES];
 	
 	(void)[[[self.module bindProtocol:@protocol(GitHubClientProtocol) toClass:[GitHubClient class]] withConstructor]
-		   initWithClient:Inject([Client class])];
+		   initWithClient:InjectBinding([Client class])];
 	
 	GitHubClient *githubClient = [[DIInjector sharedInstance] resolveForProtocol:@protocol(GitHubClientProtocol)];
 	GitHubClient *githubClient2 = [[DIInjector sharedInstance] resolveForProtocol:@protocol(GitHubClientProtocol)];
@@ -179,7 +179,7 @@
 	[self.module bindProtocol:@protocol(ClientProtocol) toClass:[Client class] asSingleton:NO];
 	
 	(void)[[[self.module bindProtocol:@protocol(GitHubClientProtocol) toClass:[GitHubClient class]] withConstructor]
-		   initWithClient:Inject(@protocol(ClientProtocol))];
+		   initWithClient:InjectBinding(@protocol(ClientProtocol))];
 	
 	GitHubClient *githubClient = [[DIInjector sharedInstance] resolveForProtocol:@protocol(GitHubClientProtocol)];
 	GitHubClient *githubClient2 = [[DIInjector sharedInstance] resolveForProtocol:@protocol(GitHubClientProtocol)];

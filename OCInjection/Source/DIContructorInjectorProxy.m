@@ -74,9 +74,15 @@
 	
 	for (int i=2 ; i<numberOfColumnsInMethodName+2 ; i++)
 	{
-		NSString *argument;
+		__unsafe_unretained id argument;
 		[anInvocation getArgument:&argument atIndex:i];
-		[argumentsPassedToSelector addObject:[NSString stringWithFormat:@"%@", argument]];
+		
+		if (![argument isKindOfClass:[DIConstructorArgument class]])
+			@throw ([NSException exceptionWithName:@"InvalidContructorBinding"
+											reason:@"Invalid argument passed to contructor, please use InjectBinding or InjectValue"
+										  userInfo:nil]);
+		
+		[argumentsPassedToSelector addObject:argument];
 	}
 	
 	[self.delegate diContructorInjectorProxy:self didInvokeSelector:anInvocation.selector withArgumentTypes:argumentsPassedToSelector];

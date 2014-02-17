@@ -31,17 +31,19 @@
 
 @interface Client()
 @property (nonatomic, strong) NSString *baseUrl;
+@property (nonatomic, assign) NSInteger timeout;
 @end
 
 @implementation Client
 
 #pragma mark - Initialization -
 
-- (id)initWithApplicationConfiguration:(id <ApplicationConfigurationProtocol>)config
+- (id)initWithApplicationConfiguration:(id <ApplicationConfigurationProtocol>)config andTimeout:(NSNumber *)timeout
 {
 	if (self = [super init])
 	{
 		self.baseUrl = [config configurationValueForKey:@"Service_URL"];
+		self.timeout = [timeout intValue];
 	}
 	
 	return self;
@@ -59,6 +61,8 @@
 	AFHTTPClient* httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:self.baseUrl]];
 	[httpClient setParameterEncoding:AFJSONParameterEncoding];
 	NSMutableURLRequest *request = [httpClient requestWithMethod:[self httpMethodString:httpMethod] path:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] parameters:postData];
+	
+	[request setTimeoutInterval:self.timeout];
 	
 	[self startOperationWithRequest:request resultType:resultType  withCompletion:completion];
 }

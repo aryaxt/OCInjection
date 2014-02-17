@@ -30,6 +30,8 @@
 		15C9AC8018A81C33006E6F27 /* DIInjectionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C9AC7F18A81C33006E6F27 /* DIInjectionInfo.m */; };
 		15C9ACC118AB27D2006E6F27 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C9ACC018AB27D2006E6F27 /* SystemConfiguration.framework */; };
 		15C9ACC318AB27EC006E6F27 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C9ACC218AB27EC006E6F27 /* MobileCoreServices.framework */; };
+		15C9ACC618ACB3ED006E6F27 /* ProtocolClassProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C9ACC518ACB3ED006E6F27 /* ProtocolClassProvider.m */; };
+		15C9ACC918B27B19006E6F27 /* DIConstructorArgument.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C9ACC818B27B19006E6F27 /* DIConstructorArgument.m */; };
 		993F03C91730257500A21C93 /* DIAbstractModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 993F03C81730257500A21C93 /* DIAbstractModule.m */; };
 		993F042A17316AD200A21C93 /* DIInjectorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 993F042917316AD200A21C93 /* DIInjectorTest.m */; };
 		99FA8F4C18AA901100CA4AE1 /* DIConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 99FA8F3D18AA901100CA4AE1 /* DIConfig.m */; };
@@ -113,6 +115,10 @@
 		15C9AC7F18A81C33006E6F27 /* DIInjectionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIInjectionInfo.m; sourceTree = "<group>"; };
 		15C9ACC018AB27D2006E6F27 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		15C9ACC218AB27EC006E6F27 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		15C9ACC418ACB3ED006E6F27 /* ProtocolClassProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProtocolClassProvider.h; sourceTree = "<group>"; };
+		15C9ACC518ACB3ED006E6F27 /* ProtocolClassProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProtocolClassProvider.m; sourceTree = "<group>"; };
+		15C9ACC718B27B19006E6F27 /* DIConstructorArgument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIConstructorArgument.h; sourceTree = "<group>"; };
+		15C9ACC818B27B19006E6F27 /* DIConstructorArgument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIConstructorArgument.m; sourceTree = "<group>"; };
 		993F03C71730257500A21C93 /* DIAbstractModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIAbstractModule.h; sourceTree = "<group>"; };
 		993F03C81730257500A21C93 /* DIAbstractModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIAbstractModule.m; sourceTree = "<group>"; };
 		993F0425173169D700A21C93 /* DIInjectorTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIInjectorTest.h; sourceTree = "<group>"; };
@@ -284,6 +290,8 @@
 				15A542F6172E11CA0062531E /* DIMockConfig.m */,
 				993F0425173169D700A21C93 /* DIInjectorTest.h */,
 				993F042917316AD200A21C93 /* DIInjectorTest.m */,
+				15C9ACC418ACB3ED006E6F27 /* ProtocolClassProvider.h */,
+				15C9ACC518ACB3ED006E6F27 /* ProtocolClassProvider.m */,
 			);
 			path = OCInjectionTests;
 			sourceTree = "<group>";
@@ -309,6 +317,8 @@
 				15C9AC7C18A7FD8B006E6F27 /* DIContructorInjectorProxy.m */,
 				15C9AC7E18A81C33006E6F27 /* DIInjectionInfo.h */,
 				15C9AC7F18A81C33006E6F27 /* DIInjectionInfo.m */,
+				15C9ACC718B27B19006E6F27 /* DIConstructorArgument.h */,
+				15C9ACC818B27B19006E6F27 /* DIConstructorArgument.m */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -657,6 +667,7 @@
 				99FA8F9A18AA94D600CA4AE1 /* NSDictionary+ObjectMapper.m in Sources */,
 				99FA8F5B18AA946E00CA4AE1 /* GitHubClient.m in Sources */,
 				99FA8FE418AAD25B00CA4AE1 /* ContributorsViewController.m in Sources */,
+				15C9ACC918B27B19006E6F27 /* DIConstructorArgument.m in Sources */,
 				15C9AC8018A81C33006E6F27 /* DIInjectionInfo.m in Sources */,
 				993F03C91730257500A21C93 /* DIAbstractModule.m in Sources */,
 				99FA8F9118AA94D600CA4AE1 /* AFHTTPClient.m in Sources */,
@@ -672,6 +683,7 @@
 				99FA8FEB18AAD50800CA4AE1 /* BaseTest.m in Sources */,
 				15A542AF172DBFBA0062531E /* RepositoriesViewControllerTests.m in Sources */,
 				15A542F7172E11CA0062531E /* DIMockConfig.m in Sources */,
+				15C9ACC618ACB3ED006E6F27 /* ProtocolClassProvider.m in Sources */,
 				993F042A17316AD200A21C93 /* DIInjectorTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

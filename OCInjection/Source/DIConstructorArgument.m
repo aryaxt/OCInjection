@@ -1,9 +1,9 @@
 //
-//  DIMockInjector.m
-//  OCDependencyInjection
+//  DIConstructorArgument.m
+//  OCInjection
 //
-//  Created by Aryan Gh on 4/28/13.
-//  Copyright (c) 2013 Aryan Ghassemi. All rights reserved.
+//  Created by Aryan Gh on 2/17/14.
+//  Copyright (c) 2014 Aryan Ghassemi. All rights reserved.
 //
 // https://github.com/aryaxt/OCInjection
 //
@@ -25,24 +25,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "DIMockConfig.h"
-#import "DIInjector.h"
-#import "ClientProtocol.h"
-#import "GitHubClientProtocol.h"
-#import "ApplicationConfigurationProtocol.h"
-#import "ProtocolClassProvider.h"
+#import "DIConstructorArgument.h"
 
-@implementation DIMockConfig
-
-- (void)configure
-{
-	OCMockObject *applicationConfigurationMock = [OCMockObject niceMockForClass:[ProtocolClassProvider classFromProtocol:@protocol(ApplicationConfigurationProtocol)]];
-	OCMockObject *gitHubClientMock = [OCMockObject niceMockForClass:[ProtocolClassProvider classFromProtocol:@protocol(GitHubClientProtocol)]];
-	OCMockObject *clientMock = [OCMockObject niceMockForClass:[ProtocolClassProvider classFromProtocol:@protocol(ClientProtocol)]];
-	
-	[self bindProtocol:@protocol(ApplicationConfigurationProtocol) toInstance:applicationConfigurationMock];
-	[self bindProtocol:@protocol(GitHubClientProtocol) toInstance:gitHubClientMock];
-	[self bindProtocol:@protocol(ClientProtocol) toInstance:clientMock];
-}
+@implementation DIConstructorArgument
 
 @end

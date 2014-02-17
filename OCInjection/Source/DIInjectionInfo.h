@@ -29,9 +29,9 @@
 
 @interface DIInjectionInfo : NSObject
 
-@property (nonatomic, strong) Class injectionClass;
+@property (nonatomic, copy) Class injectionClass;
+@property (nonatomic, copy) NSArray *constructorArguments;
 @property (nonatomic, assign) SEL constructorSelector;
 @property (nonatomic, assign) BOOL isSingleton;
-@property (nonatomic, strong) NSArray *constructorArgumentTypes;
 
 @end

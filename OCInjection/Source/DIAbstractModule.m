@@ -49,7 +49,24 @@
 
 #pragma mark - Class Methods -
 
-+ (id)stringFromClassOrProtocol:(id)classOrProtocol
++ (DIConstructorArgument *)bindingContructorArgumentFromClassOrProtocol:(id)classOrProtocol
+{
+	DIConstructorArgument *argument = [[DIConstructorArgument alloc] init];
+	argument.isBinding = YES;
+	argument.value = [DIAbstractModule stringFromClassOrProtocol:classOrProtocol];
+	
+	return argument;
+}
+
++ (DIConstructorArgument *)valueContructorArgumentFromValue:(id)value
+{
+	DIConstructorArgument *argument = [[DIConstructorArgument alloc] init];
+	argument.isBinding = NO;
+	argument.value = value;
+	return argument;
+}
+
++ (NSString *)stringFromClassOrProtocol:(id)classOrProtocol
 {
 	if ([classOrProtocol isKindOfClass:NSClassFromString(@"Protocol")])
 		return NSStringFromProtocol(classOrProtocol);
@@ -142,10 +159,10 @@
 	return [self injectionObjectForType:protocol];
 }
 
-- (id)injectionObjectForType:(id)classOrrotocol
+- (id)injectionObjectForType:(id)classOrProtocol
 {
 	id instance = nil;
-	NSString *classOrProtocolString = [DIAbstractModule stringFromClassOrProtocol:classOrrotocol];
+	NSString *classOrProtocolString = [DIAbstractModule stringFromClassOrProtocol:classOrProtocol];
 	DIInjectionInfo *info = [self.bindingDictionary objectForKey:classOrProtocolString];
 	
 	if (info.isSingleton)
@@ -165,10 +182,16 @@
 		[invocation setSelector:info.constructorSelector];
 		[invocation setTarget:instance];
 		
-		for (int i=0 ; i<info.constructorArgumentTypes.count ; i++)
+		for (int i=0 ; i<info.constructorArguments.count ; i++)
 		{
-			NSString *argumentType = [info.constructorArgumentTypes objectAtIndex:i];
-			id injectingArgument = [self injectionObjectForType:[DIAbstractModule classOrProtocolFromString:argumentType]];
+			DIConstructorArgument *argument = [info.constructorArguments objectAtIndex:i];
+			id injectingArgument;
+			
+			if (argument.isBinding)
+				injectingArgument = [self injectionObjectForType:[DIAbstractModule classOrProtocolFromString:argument.value]];
+			else
+				injectingArgument = argument.value;
+				
 			[invocation setArgument:&injectingArgument atIndex:i+2];
 		}
 		
@@ -182,7 +205,7 @@
 	}
 	
 	if (info.isSingleton && instance)
-		[self storeObjectAsSingleton:instance forBinding:classOrrotocol];
+		[self storeObjectAsSingleton:instance forBinding:classOrProtocol];
 
 	return instance;
 }
@@ -230,7 +253,7 @@
 {
 	DIInjectionInfo *info = [self.bindingDictionary objectForKey:proxy.bindingKey];
 	info.constructorSelector = selector;
-	info.constructorArgumentTypes = arguments;
+	info.constructorArguments = arguments;
 }
 
 @end

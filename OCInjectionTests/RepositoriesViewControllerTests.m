@@ -55,9 +55,9 @@
 - (void)testShouldFetchReposForAryaxtWhenUsernameIsNotSelected
 {
 	static NSString *expectedUsername = @"aryaxt";
-	//[[(OCMockObject *)self.githubClient expect] fetchRepositoriesByUsername:expectedUsername andCompletion:nil];
+	[[(OCMockObject *)self.githubClient expect] fetchRepositoriesByUsername:expectedUsername andCompletion:OCMOCK_ANY];
 	[self.viewController view];
-	//[(OCMockObject *)self.githubClient verify];
+	[(OCMockObject *)self.githubClient verify];
 }
 
 @end

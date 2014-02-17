@@ -28,12 +28,15 @@
 #import <Foundation/Foundation.h>
 #import "DIContructorInjectorProxy.h"
 #import "DIInjectionInfo.h"
+#import "DIConstructorArgument.h"
 
-#define Inject(x) [DIAbstractModule stringFromClassOrProtocol:x]
+#define InjectBinding(x) [DIAbstractModule bindingContructorArgumentFromClassOrProtocol:x]
+#define InjectValue(x) [DIAbstractModule valueContructorArgumentFromValue:x]
 
 @interface DIAbstractModule : NSObject
 
-+ (id)stringFromClassOrProtocol:(id)classOrProtocol; /* For internal use only */
++ (id)bindingContructorArgumentFromClassOrProtocol:(id)classOrProtocol; /* For internal use only */
++ (id)valueContructorArgumentFromValue:(id)value; /* For internal use only */
 - (BOOL)canResolveObjectForType:(id)classOrProtocol;
 - (void)configure;
 - (id)injectionObjectForClass:(Class)class;

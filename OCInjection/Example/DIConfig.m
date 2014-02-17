@@ -38,12 +38,16 @@
 - (void)configure
 {
 	[self bindProtocol:@protocol(ApplicationConfigurationProtocol) toClass:[ApplicationConfiguration class] asSingleton:YES];
-
-	(void) [[[self bindProtocol:@protocol(ClientProtocol) toClass:[Client class] asSingleton:YES] withConstructor]
-		initWithApplicationConfiguration:Inject(@protocol(ApplicationConfigurationProtocol))];
 	
+	// Binding value should be the exact same as the constructor argument type
 	(void) [[[self bindProtocol:@protocol(GitHubClientProtocol) toClass:[GitHubClient class]] withConstructor]
-		initWithClient:Inject(@protocol(ClientProtocol))];
+		initWithClient:InjectBinding(@protocol(ClientProtocol))];
+	
+	// Here we inject binding, and we inject value at the same time
+	// This is just to demonstrate that you can also inject values into constructor,
+	// but the preferred method is to inject binding rather than values.
+	(void) [[[self bindProtocol:@protocol(ClientProtocol) toClass:[Client class] asSingleton:YES] withConstructor]
+			initWithApplicationConfiguration:InjectBinding(@protocol(ApplicationConfigurationProtocol)) andTimeout:InjectValue(@60)];
 	
 	[super configure];
 }
