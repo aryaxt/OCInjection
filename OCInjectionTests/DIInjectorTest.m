@@ -186,4 +186,15 @@
 	STAssertTrue([githubClient valueForKey:@"client"] != [githubClient2 valueForKey:@"client"], @"Did not inject value as singleton");
 }
 
+- (void)testConstructorInjectionShouldInjectValue
+{
+	NSNumber *expectedTimeout = @34621;
+	
+	(void)[[[self.module bindProtocol:@protocol(ClientProtocol) toClass:[Client class]] withConstructor]
+		   initWithApplicationConfiguration:InjectBinding(@protocol(ApplicationConfigurationProtocol)) andTimeout:InjectValue(expectedTimeout)];
+	
+	Client *client = [[DIInjector sharedInstance] resolveForProtocol:@protocol(ClientProtocol)];
+	STAssertTrue(expectedTimeout.intValue == [[client valueForKey:@"timeout"] intValue], @"Did not inject value correctly");
+}
+
 @end
