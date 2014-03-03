@@ -29,7 +29,7 @@
 
 @interface DIConstructorArgument : NSObject
 
-@property (nonatomic, copy) id value;
+@property (nonatomic, copy) NSObject *value;
 @property (nonatomic, assign) BOOL isBinding;
 
 @end

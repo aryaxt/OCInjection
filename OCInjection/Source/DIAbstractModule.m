@@ -49,7 +49,7 @@
 
 #pragma mark - Class Methods -
 
-+ (DIConstructorArgument *)bindingContructorArgumentFromClassOrProtocol:(id)classOrProtocol
++ (DIConstructorArgument *)bindingConstructorArgumentFromClassOrProtocol:(id)classOrProtocol
 {
 	DIConstructorArgument *argument = [[DIConstructorArgument alloc] init];
 	argument.isBinding = YES;
@@ -58,11 +58,11 @@
 	return argument;
 }
 
-+ (DIConstructorArgument *)valueContructorArgumentFromValue:(id)value
++ (DIConstructorArgument *)valueConstructorArgumentFromValue:(NSObject *)value
 {
 	DIConstructorArgument *argument = [[DIConstructorArgument alloc] init];
 	argument.isBinding = NO;
-	argument.value = value;
+	argument.value = [value copy];
 	return argument;
 }
 
@@ -190,7 +190,7 @@
 			if (argument.isBinding)
 				injectingArgument = [self injectionObjectForType:[DIAbstractModule classOrProtocolFromString:argument.value]];
 			else
-				injectingArgument = argument.value;
+				injectingArgument = [argument.value copy];
 				
 			[invocation setArgument:&injectingArgument atIndex:i+2];
 		}
