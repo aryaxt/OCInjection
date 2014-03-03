@@ -36,7 +36,7 @@
 @interface DIAbstractModule : NSObject
 
 + (id)bindingConstructorArgumentFromClassOrProtocol:(id)classOrProtocol; /* For internal use only */
-+ (DIConstructorArgument *)valueConstructorArgumentFromValue:(NSObject *)value; /* For internal use only */
++ (id)valueConstructorArgumentFromValue:(NSObject *)value; /* For internal use only */
 - (BOOL)canResolveObjectForType:(id)classOrProtocol;
 - (void)configure;
 - (id)injectionObjectForClass:(Class)class;
