@@ -7,12 +7,12 @@
 //
 // https://github.com/aryaxt/OCInjection
 //
-// Permission to use, copy, modify and distribute this software and its documentation
-// is hereby granted, provided that both the copyright notice and this permission
-// notice appear in all copies of the software, derivative works or modified versions,
-// and any portions thereof, and that both notices appear in supporting documentation,
-// and that credit is given to Aryan Ghassemi in all documents and publicity
-// pertaining to direct or indirect use of this code or its derivatives.
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 //
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
@@ -26,19 +26,28 @@
 // THE SOFTWARE.
 
 #import "DIConfig.h"
-#import "GoogleClientProtocol.h"
-#import "GoogleClient.h"
-#import "YahooClient.h"
 #import "ClientProtocol.h"
 #import "Client.h"
+#import "ApplicationConfiguration.h"
+#import "ApplicationConfigurationProtocol.h"
+#import "GitHubClientProtocol.h"
+#import "GitHubClient.h"
 
 @implementation DIConfig
 
 - (void)configure
 {
-	[self bindClass:[YahooClient class] toClass:[YahooClient class]];
-	[self bindProtocol:@protocol(GoogleClientProtocol) toClass:[GoogleClient class]];
-	[self bindProtocol:@protocol(ClientProtocol) toClass:[Client class]];
+	[self bindProtocol:@protocol(ApplicationConfigurationProtocol) toClass:[ApplicationConfiguration class] asSingleton:YES];
+	
+	// Binding value should be the exact same as the constructor argument type
+	(void) [[[self bindProtocol:@protocol(GitHubClientProtocol) toClass:[GitHubClient class]] withConstructor]
+		initWithClient:InjectBinding(@protocol(ClientProtocol))];
+	
+	// Here we inject binding, and we inject value at the same time
+	// This is just to demonstrate that you can also inject values into constructor,
+	// but the preferred method is to inject binding rather than values.
+	(void) [[[self bindProtocol:@protocol(ClientProtocol) toClass:[Client class] asSingleton:YES] withConstructor]
+			initWithApplicationConfiguration:InjectBinding(@protocol(ApplicationConfigurationProtocol)) andTimeout:InjectValue(@60)];
 	
 	[super configure];
 }

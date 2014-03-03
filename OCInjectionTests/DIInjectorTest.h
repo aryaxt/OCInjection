@@ -7,12 +7,12 @@
 //
 // https://github.com/aryaxt/OCInjection
 //
-// Permission to use, copy, modify and distribute this software and its documentation
-// is hereby granted, provided that both the copyright notice and this permission
-// notice appear in all copies of the software, derivative works or modified versions,
-// and any portions thereof, and that both notices appear in supporting documentation,
-// and that credit is given to Aryan Ghassemi in all documents and publicity
-// pertaining to direct or indirect use of this code or its derivatives.
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 //
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
@@ -27,9 +27,12 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 #import "OCInjection.h"
-#import "YahooClient.h"
-#import "GoogleClient.h"
 #import "Client.h"
+#import "ClientProtocol.h"
+#import "ApplicationConfiguration.h"
+#import "ApplicationConfigurationProtocol.h"
+#import "GitHubClient.h"
+#import "GitHubClientProtocol.h"
 
 @interface DIInjectorTest : SenTestCase
 

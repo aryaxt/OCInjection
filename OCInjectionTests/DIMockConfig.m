@@ -7,12 +7,12 @@
 //
 // https://github.com/aryaxt/OCInjection
 //
-// Permission to use, copy, modify and distribute this software and its documentation
-// is hereby granted, provided that both the copyright notice and this permission
-// notice appear in all copies of the software, derivative works or modified versions,
-// and any portions thereof, and that both notices appear in supporting documentation,
-// and that credit is given to Aryan Ghassemi in all documents and publicity
-// pertaining to direct or indirect use of this code or its derivatives.
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 //
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
@@ -27,21 +27,22 @@
 
 #import "DIMockConfig.h"
 #import "DIInjector.h"
-#import "GoogleClient.h"
-#import "GoogleClientProtocol.h"
-#import "YahooClient.h"
+#import "ClientProtocol.h"
+#import "GitHubClientProtocol.h"
+#import "ApplicationConfigurationProtocol.h"
+#import "ProtocolClassProvider.h"
 
 @implementation DIMockConfig
 
 - (void)configure
 {
-	OCMockObject *yahooClientMock = [OCMockObject niceMockForClass:[YahooClient class]];
-	OCMockObject *googleClientMock = [OCMockObject mockForProtocol:@protocol(GoogleClientProtocol)];
-	OCMockObject *mockClient = [OCMockObject mockForProtocol:@protocol(ClientProtocol)];
+	OCMockObject *applicationConfigurationMock = [OCMockObject niceMockForClass:[ProtocolClassProvider classFromProtocol:@protocol(ApplicationConfigurationProtocol)]];
+	OCMockObject *gitHubClientMock = [OCMockObject niceMockForClass:[ProtocolClassProvider classFromProtocol:@protocol(GitHubClientProtocol)]];
+	OCMockObject *clientMock = [OCMockObject niceMockForClass:[ProtocolClassProvider classFromProtocol:@protocol(ClientProtocol)]];
 	
-	[self bindClass:[YahooClient class] toInstance:yahooClientMock];
-	[self bindProtocol:@protocol(GoogleClientProtocol) toInstance:googleClientMock];
-	[self bindProtocol:@protocol(ClientProtocol) toInstance:mockClient];
+	[self bindProtocol:@protocol(ApplicationConfigurationProtocol) toInstance:applicationConfigurationMock];
+	[self bindProtocol:@protocol(GitHubClientProtocol) toInstance:gitHubClientMock];
+	[self bindProtocol:@protocol(ClientProtocol) toInstance:clientMock];
 }
 
 @end

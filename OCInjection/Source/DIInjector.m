@@ -7,12 +7,12 @@
 //
 // https://github.com/aryaxt/OCInjection
 //
-// Permission to use, copy, modify and distribute this software and its documentation
-// is hereby granted, provided that both the copyright notice and this permission
-// notice appear in all copies of the software, derivative works or modified versions,
-// and any portions thereof, and that both notices appear in supporting documentation,
-// and that credit is given to Aryan Ghassemi in all documents and publicity
-// pertaining to direct or indirect use of this code or its derivatives.
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 //
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
@@ -95,7 +95,7 @@ static DIInjector *singleton;
     if ([[methodName substringFromIndex:methodName.length-1] isEqual:@":"])
     {
 		NSString *propertyName = propertyNameFromSetterName(methodName);
-		NSString *objectTypeString = typeForProperty([self class], propertyName);
+		id objectTypeString = typeForProperty([self class], propertyName);
 		
 		if ([singleton.module canResolveObjectForType:objectTypeString])
 		{
@@ -105,7 +105,7 @@ static DIInjector *singleton;
     }
     else
     {
-		NSString *objectTypeString = typeForProperty([self class], methodName);
+		id objectTypeString = typeForProperty([self class], methodName);
 		
 		if ([singleton.module canResolveObjectForType:objectTypeString])
 		{
@@ -140,7 +140,10 @@ bool classHasProperty(Class class, NSString *testPropertyName)
 	return NO;
 }
 
-NSString* typeForProperty(Class class, NSString *propertyName)
+/* 
+ returns a protocol or a class representing a property 
+*/
+id typeForProperty(Class class, NSString *propertyName)
 {
 	if (!classHasProperty(class, propertyName))
 		return nil;
@@ -154,10 +157,17 @@ NSString* typeForProperty(Class class, NSString *propertyName)
 	// Type Attribute For Protocol    T@"<ProtocolName>"
 	// Here we trim these characters to end of with a raw class/protocol name
 	
-	return [[[[typeAttribute substringFromIndex:3]
+	BOOL isProtocol = [typeAttribute rangeOfString:@"<"].length ? YES : NO;;
+	
+	typeAttribute = [[[[typeAttribute substringFromIndex:3]
 			   stringByReplacingOccurrencesOfString:@"\"" withString:@""]
 			   stringByReplacingOccurrencesOfString:@"<" withString:@""]
 			   stringByReplacingOccurrencesOfString:@">" withString:@""];
+	
+	if (isProtocol)
+		return NSProtocolFromString(typeAttribute);
+	else
+		return NSClassFromString(typeAttribute);
 }
 
 NSString* propertyNameFromSetterName(NSString *setterName)
@@ -176,7 +186,7 @@ id accessorGetter(id self, SEL _cmd)
 	
 	if (!currentValue)
 	{
-		NSString *typeString = typeForProperty([self class], propertyName);
+		id typeString = typeForProperty([self class], propertyName);
 		currentValue = currentValue = [singleton.module injectionObjectForType:typeString];
 		objc_setAssociatedObject(self, property, currentValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}

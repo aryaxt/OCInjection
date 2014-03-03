@@ -1,72 +1,149 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2840" systemVersion="12D78" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="k8f-ra-9Bj">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1926"/>
+        <deployment defaultVersion="1536" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Navigation Controller-->
+        <scene sceneID="SCE-Pw-glG">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="k8f-ra-9Bj" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="P16-4V-FSk">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="2" kind="relationship" relationship="rootViewController" id="jFw-b4-yTg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Uih-MA-cfx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-85" y="189"/>
+        </scene>
+        <!--Repositories View Controller - Repositories-->
         <scene sceneID="5">
             <objects>
-                <viewController id="2" customClass="ViewController" sceneMemberID="viewController">
+                <viewController id="2" customClass="RepositoriesViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="r6A-nw-7RR"/>
+                        <viewControllerLayoutGuide type="bottom" id="l0V-uJ-tyo"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="3">
-                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="81p-k6-6mS">
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </webView>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q6S-MB-5K9">
-                                <items>
-                                    <navigationItem title="OCInjection" id="Ctd-KC-yan">
-                                        <barButtonItem key="leftBarButtonItem" title="Yahoo" id="df4-4g-E56">
-                                            <connections>
-                                                <action selector="fetchYahooDataSelected:" destination="2" id="fxt-nd-Rkd"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Google" id="goM-Wu-jzF">
-                                            <connections>
-                                                <action selector="fetchGoogleDataSelected:" destination="2" id="4SP-BS-wUn"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="89" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="I0W-0r-bmz">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="repositoryCell" textLabel="F9R-yJ-Cbx" detailTextLabel="bmh-nr-Dxl" rowHeight="89" style="IBUITableViewCellStyleSubtitle" id="3gv-4c-em5">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="89"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3gv-4c-em5" id="1E7-Sg-I2C">
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="88"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="F9R-yJ-Cbx">
+                                                    <rect key="frame" x="15" y="25" width="36" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                    <color key="textColor" red="0.5176470876" green="0.231372565" blue="0.53333336109999996" alpha="1" colorSpace="deviceRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="35" id="bmh-nr-Dxl">
+                                                    <rect key="frame" x="15" y="47" width="35" height="16"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="cNn-EA-raw" kind="push" identifier="ContributorsViewControllerSegue" id="co7-KK-KDy"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="2" id="VGw-V2-oVQ"/>
+                                    <outlet property="delegate" destination="2" id="IED-cZ-rER"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="Q6S-MB-5K9" firstAttribute="top" secondItem="3" secondAttribute="top" type="default" id="DYn-NG-83V"/>
-                            <constraint firstItem="81p-k6-6mS" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="FdW-Es-FQ1"/>
-                            <constraint firstItem="Q6S-MB-5K9" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="GW6-3K-c21"/>
-                            <constraint firstItem="81p-k6-6mS" firstAttribute="top" secondItem="Q6S-MB-5K9" secondAttribute="bottom" type="default" id="Ixw-yZ-XMZ"/>
-                            <constraint firstItem="Q6S-MB-5K9" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="KBX-Rj-XHX"/>
-                            <constraint firstItem="81p-k6-6mS" firstAttribute="bottom" secondItem="3" secondAttribute="bottom" type="default" id="QFJ-vw-DgJ"/>
-                            <constraint firstItem="81p-k6-6mS" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="VAc-KE-Hkc"/>
-                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Repositories" id="PPN-td-hrn"/>
                     <connections>
-                        <outlet property="webView" destination="81p-k6-6mS" id="Wcs-8e-fMs"/>
+                        <outlet property="tableView" destination="I0W-0r-bmz" id="Eld-8R-E1J"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="412" y="189"/>
+        </scene>
+        <!--Contributors View Controller - Contributors-->
+        <scene sceneID="K5O-pk-9RJ">
+            <objects>
+                <viewController storyboardIdentifier="ContributorsViewController" id="cNn-EA-raw" customClass="ContributorsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="csC-ne-PrI"/>
+                        <viewControllerLayoutGuide type="bottom" id="bvl-4p-kuC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="f46-rC-Wct">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="mRY-Yw-rjz">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="contributorCell" textLabel="KgG-JB-NY3" style="IBUITableViewCellStyleDefault" id="AQm-OA-2MQ">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AQm-OA-2MQ" id="I6i-mL-cD1">
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KgG-JB-NY3">
+                                                    <rect key="frame" x="15" y="0.0" width="270" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                    <color key="textColor" red="0.5176470876" green="0.231372565" blue="0.53333336109999996" alpha="1" colorSpace="deviceRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="2" kind="push" identifier="RepositoriesViewControllerSegue" id="Fvm-mF-fzS"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="cNn-EA-raw" id="uXh-nM-DDn"/>
+                                    <outlet property="delegate" destination="cNn-EA-raw" id="rRf-nd-LXF"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Contributors" id="ESE-1d-A4h"/>
+                    <connections>
+                        <outlet property="tableView" destination="mRY-Yw-rjz" id="O6h-Y3-nVJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0zI-hS-UFG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="867" y="10"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="fetchGoogleDataSelected:"/>
-                <relationship kind="action" name="fetchYahooDataSelected:"/>
-                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="Fvm-mF-fzS"/>
+    </inferredMetricsTieBreakers>
 </document>

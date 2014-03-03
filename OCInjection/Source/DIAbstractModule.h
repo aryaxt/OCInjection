@@ -7,12 +7,12 @@
 //
 // https://github.com/aryaxt/OCInjection
 //
-// Permission to use, copy, modify and distribute this software and its documentation
-// is hereby granted, provided that both the copyright notice and this permission
-// notice appear in all copies of the software, derivative works or modified versions,
-// and any portions thereof, and that both notices appear in supporting documentation,
-// and that credit is given to Aryan Ghassemi in all documents and publicity
-// pertaining to direct or indirect use of this code or its derivatives.
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 //
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
@@ -26,22 +26,28 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "DIContructorInjectorProxy.h"
+#import "DIInjectionInfo.h"
+#import "DIConstructorArgument.h"
+
+#define InjectBinding(x) [DIAbstractModule bindingConstructorArgumentFromClassOrProtocol:x]
+#define InjectValue(x) [DIAbstractModule valueConstructorArgumentFromValue:x]
 
 @interface DIAbstractModule : NSObject
 
-- (BOOL)canResolveObjectForType:(NSString *)type;
++ (id)bindingConstructorArgumentFromClassOrProtocol:(id)classOrProtocol; /* For internal use only */
++ (DIConstructorArgument *)valueConstructorArgumentFromValue:(NSObject *)value; /* For internal use only */
+- (BOOL)canResolveObjectForType:(id)classOrProtocol;
 - (void)configure;
-
-- (void)bindClassToSelf:(Class)class;
-- (void)bindClass:(Class)from toClass:(Class)to;
-- (void)bindClass:(Class)from toClass:(Class)to asSingleton:(BOOL)isSingleton;
-- (void)bindClass:(Class)class toInstance:(id)instance;
-- (void)bindProtocol:(Protocol *)protocol toClass:(Class)class;
-- (void)bindProtocol:(Protocol *)protocol toClass:(Class)class asSingleton:(BOOL)isSingleton;
-- (void)bindProtocol:(Protocol *)protocol toInstance:(id)instance;
-
 - (id)injectionObjectForClass:(Class)class;
 - (id)injectionObjectForProtocol:(Protocol *)protocol;
-- (id)injectionObjectForType:(NSString *)type;
+- (id)injectionObjectForType:(id)classOrProtocol;
+- (DIContructorInjectorProxy *)bindClassToSelf:(Class)class;
+- (DIContructorInjectorProxy *)bindClass:(Class)from toClass:(Class)to;
+- (DIContructorInjectorProxy *)bindClass:(Class)from toClass:(Class)to asSingleton:(BOOL)isSingleton;
+- (DIContructorInjectorProxy *)bindClass:(Class)class toInstance:(id)instance;
+- (DIContructorInjectorProxy *)bindProtocol:(Protocol *)protocol toClass:(Class)class;
+- (DIContructorInjectorProxy *)bindProtocol:(Protocol *)protocol toClass:(Class)class asSingleton:(BOOL)isSingleton;
+- (DIContructorInjectorProxy *)bindProtocol:(Protocol *)protocol toInstance:(id)instance;
 
 @end

@@ -7,12 +7,12 @@
 //
 // https://github.com/aryaxt/OCInjection
 //
-// Permission to use, copy, modify and distribute this software and its documentation
-// is hereby granted, provided that both the copyright notice and this permission
-// notice appear in all copies of the software, derivative works or modified versions,
-// and any portions thereof, and that both notices appear in supporting documentation,
-// and that credit is given to Aryan Ghassemi in all documents and publicity
-// pertaining to direct or indirect use of this code or its derivatives.
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 //
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
@@ -28,7 +28,8 @@
 #import "DIInjectorTest.h"
 
 @implementation DIInjectorTest
-@synthesize module;
+
+#pragma mark - Setup &* Teardown -
 
 - (void)setUp
 {
@@ -45,12 +46,14 @@
 	[super tearDown];
 }
 
+#pragma mark - Tests -
+
 - (void)testClassToClassBindingShouldReturnCorrectObjectType
 {
-	[self.module bindClass:[YahooClient class] toClass:[YahooClient class]];
-	id result = [[DIInjector sharedInstance] resolveForClass:[YahooClient class]];
+	[self.module bindClass:[Client class] toClass:[Client class]];
+	id result = [[DIInjector sharedInstance] resolveForClass:[Client class]];
 	
-	STAssertTrue([result isKindOfClass:[YahooClient class]], @"Did not populate object correctly");
+	STAssertTrue([result isKindOfClass:[Client class]], @"Did not populate object correctly");
 }
 
 - (void)testProtocolToClassBindingShouldReturnCorrectObjectType
@@ -73,19 +76,19 @@
 
 - (void)testClassToInstaneBindingShouldReturnCorrectInstanceOfObject
 {
-	YahooClient *client = [[YahooClient alloc] init];
+	Client *client = [[Client alloc] init];
 	
-	[self.module bindClass:[YahooClient class] toInstance:client];
-	id result = [[DIInjector sharedInstance] resolveForClass:[YahooClient class]];
+	[self.module bindClass:[Client class] toInstance:client];
+	id result = [[DIInjector sharedInstance] resolveForClass:[Client class]];
 	
 	STAssertTrue(result == client, @"Did not populate object correctly");
 }
 
 - (void)testClassToClassSingletonBindingShouldReturnTheSameInstanceOfObject
 {
-	[self.module bindClass:[YahooClient class] toClass:[YahooClient class] asSingleton:YES];
-	id result1 = [[DIInjector sharedInstance] resolveForClass:[YahooClient class]];
-	id result2 = [[DIInjector sharedInstance] resolveForClass:[YahooClient class]];
+	[self.module bindClass:[Client class] toClass:[Client class] asSingleton:YES];
+	id result1 = [[DIInjector sharedInstance] resolveForClass:[Client class]];
+	id result2 = [[DIInjector sharedInstance] resolveForClass:[Client class]];
 	
 	STAssertTrue(result1 == result2, @"Did not populate object correctly");
 }
@@ -101,9 +104,9 @@
 
 - (void)testClassToClassNonSingletonBindingShouldNotReturnCSameInstanceObject
 {
-	[self.module bindClass:[YahooClient class] toClass:[YahooClient class] asSingleton:NO];
-	id result1 = [[DIInjector sharedInstance] resolveForClass:[YahooClient class]];
-	id result2 = [[DIInjector sharedInstance] resolveForClass:[YahooClient class]];
+	[self.module bindClass:[Client class] toClass:[Client class] asSingleton:NO];
+	id result1 = [[DIInjector sharedInstance] resolveForClass:[Client class]];
+	id result2 = [[DIInjector sharedInstance] resolveForClass:[Client class]];
 	
 	STAssertTrue(result1 != result2, @"Did not populate object correctly");
 }
@@ -119,9 +122,9 @@
 
 - (void)testClassToClassBindingShouldNotReturnTheSameInstanceObject
 {
-	[self.module bindClass:[YahooClient class] toClass:[YahooClient class]];
-	id result = [[DIInjector sharedInstance] resolveForClass:[YahooClient class]];
-	id resul2 = [[DIInjector sharedInstance] resolveForClass:[YahooClient class]];
+	[self.module bindClass:[Client class] toClass:[Client class]];
+	id result = [[DIInjector sharedInstance] resolveForClass:[Client class]];
+	id resul2 = [[DIInjector sharedInstance] resolveForClass:[Client class]];
 	
 	STAssertTrue(result != resul2, @"Did not populate object correctly");
 }
@@ -133,6 +136,65 @@
 	id result2 = [[DIInjector sharedInstance] resolveForProtocol:@protocol(ClientProtocol)];
 	
 	STAssertTrue(result != result2, @"Did not populate object correctly");
+}
+
+- (void)testConstructorInjectionShouldInjectDependencies
+{
+	[self.module bindProtocol:@protocol(ClientProtocol) toClass:[Client class]];
+	
+	(void)[[[self.module bindProtocol:@protocol(GitHubClientProtocol) toClass:[GitHubClient class]] withConstructor]
+		   initWithClient:InjectBinding(@protocol(ClientProtocol))];
+	
+	GitHubClient *githubClient = [[DIInjector sharedInstance] resolveForProtocol:@protocol(GitHubClientProtocol)];
+	STAssertNotNil([githubClient valueForKey:@"client"], @"Did not inject value in contructor");
+	STAssertTrue([[githubClient valueForKey:@"client"] isKindOfClass:[Client class]], @"Did not inject correct type");
+}
+
+- (void)testConstructorInjectionShouldInjectProtocolDependenciesAsSingletonWhenDefined
+{
+	[self.module bindProtocol:@protocol(ClientProtocol) toClass:[Client class] asSingleton:YES];
+	
+	(void)[[[self.module bindProtocol:@protocol(GitHubClientProtocol) toClass:[GitHubClient class]] withConstructor]
+		   initWithClient:InjectBinding(@protocol(ClientProtocol))];
+	
+	GitHubClient *githubClient = [[DIInjector sharedInstance] resolveForProtocol:@protocol(GitHubClientProtocol)];
+	GitHubClient *githubClient2 = [[DIInjector sharedInstance] resolveForProtocol:@protocol(GitHubClientProtocol)];
+	STAssertTrue([githubClient valueForKey:@"client"] == [githubClient2 valueForKey:@"client"], @"Did not inject value as singleton");
+}
+
+- (void)testConstructorInjectionShouldInjectClassDependenciesAsSingletonWhenDefined
+{
+	[self.module bindClass:[Client class] toClass:[Client class] asSingleton:YES];
+	
+	(void)[[[self.module bindProtocol:@protocol(GitHubClientProtocol) toClass:[GitHubClient class]] withConstructor]
+		   initWithClient:InjectBinding([Client class])];
+	
+	GitHubClient *githubClient = [[DIInjector sharedInstance] resolveForProtocol:@protocol(GitHubClientProtocol)];
+	GitHubClient *githubClient2 = [[DIInjector sharedInstance] resolveForProtocol:@protocol(GitHubClientProtocol)];
+	STAssertTrue([githubClient valueForKey:@"client"] == [githubClient2 valueForKey:@"client"], @"Did not inject value as singleton");
+}
+
+- (void)testConstructorInjectionShouldNotInjectDependenciesAsSingletonWhenNotDefined
+{
+	[self.module bindProtocol:@protocol(ClientProtocol) toClass:[Client class] asSingleton:NO];
+	
+	(void)[[[self.module bindProtocol:@protocol(GitHubClientProtocol) toClass:[GitHubClient class]] withConstructor]
+		   initWithClient:InjectBinding(@protocol(ClientProtocol))];
+	
+	GitHubClient *githubClient = [[DIInjector sharedInstance] resolveForProtocol:@protocol(GitHubClientProtocol)];
+	GitHubClient *githubClient2 = [[DIInjector sharedInstance] resolveForProtocol:@protocol(GitHubClientProtocol)];
+	STAssertTrue([githubClient valueForKey:@"client"] != [githubClient2 valueForKey:@"client"], @"Did not inject value as singleton");
+}
+
+- (void)testConstructorInjectionShouldInjectValue
+{
+	NSNumber *expectedTimeout = @34621;
+	
+	(void)[[[self.module bindProtocol:@protocol(ClientProtocol) toClass:[Client class]] withConstructor]
+		   initWithApplicationConfiguration:InjectBinding(@protocol(ApplicationConfigurationProtocol)) andTimeout:InjectValue(expectedTimeout)];
+	
+	Client *client = [[DIInjector sharedInstance] resolveForProtocol:@protocol(ClientProtocol)];
+	STAssertTrue(expectedTimeout.intValue == [[client valueForKey:@"timeout"] intValue], @"Did not inject value correctly");
 }
 
 @end
